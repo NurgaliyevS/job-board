@@ -29,7 +29,7 @@ function Footer({ bgColor }) {
                 width={24}
                 height={24}
               />
-              <span className="font-extrabold text-lg">EnvironmentalJobBoards</span>
+              <span className="font-extrabold text-lg">Environmental Job Boards</span>
             </Link>
 
             <p className="mt-3 text-sm leading-relaxed">

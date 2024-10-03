@@ -62,7 +62,7 @@ const Header = ({ linksOutside, buttonCore }) => {
               width={24}
               height={24}
             />
-            <span className="font-extrabold text-lg">EnvironmentalJobBoards</span>
+            <span className="font-extrabold text-lg">Environmental Job Boards</span>
           </Link>
         </div>
         {/* Burger button to open menu on mobile */}
