@@ -29,7 +29,9 @@ function Footer({ bgColor }) {
                 width={24}
                 height={24}
               />
-              <span className="font-extrabold text-lg">Environmental Job Boards</span>
+              <span className="font-extrabold text-lg">
+                Environmental Job Boards
+              </span>
             </Link>
 
             <p className="mt-3 text-sm leading-relaxed">
@@ -127,7 +129,9 @@ function Footer({ bgColor }) {
                 <Link
                   className="link link-hover"
                   href={
-                    isDevelopment() ? "/blog" : "https://environmentaljobboards.com/blog"
+                    isDevelopment()
+                      ? "/blog"
+                      : "https://environmentaljobboards.com/blog"
                   }
                   title="Uptime Friend - blog"
                 >
@@ -142,7 +146,29 @@ function Footer({ bgColor }) {
               <div className="flex flex-col justify-center items-center md:items-start gap-2 mb-10 text-sm">
                 <Link
                   className="link link-hover"
-                  href="http://uptimefriend.com/"
+                  href="https://subpage.io/"
+                  target="_blank"
+                  title="SubPage - home page"
+                  onClick={() => {
+                    plausible("SubPage");
+                  }}
+                >
+                  SubPage
+                </Link>
+                <Link
+                  className="link link-hover"
+                  href="https://pregnantmeal.com/"
+                  target="_blank"
+                  title="Pregnant Meal - home page"
+                  onClick={() => {
+                    plausible("PregnantMeal");
+                  }}
+                >
+                  PregnantMeal
+                </Link>
+                <Link
+                  className="link link-hover"
+                  href="https://uptimefriend.com/"
                   target="_blank"
                   title="Uptime Friend - home page"
                   onClick={() => {
@@ -164,7 +190,7 @@ function Footer({ bgColor }) {
                 </Link>
                 <Link
                   className="link link-hover"
-                  href="http://weeealth.com/"
+                  href="https://weeealth.com/"
                   target="_blank"
                   title="Weeealth - home page"
                   onClick={() => {

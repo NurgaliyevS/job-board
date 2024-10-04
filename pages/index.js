@@ -27,11 +27,6 @@ export default function Home() {
       </header>
       <main className={`flex flex-col min-h-screen mx-auto ${lato.className}`}>
         <Main />
-        <Ads />
-        <Hero />
-        <Demo />
-        <Pricing />
-        <FAQ />
       </main>
       <footer className={lato.className}>
         <Footer />
