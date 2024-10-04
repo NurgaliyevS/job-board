@@ -56,7 +56,7 @@ const Header = ({ linksOutside, buttonCore }) => {
           >
             <Image
               src={"/company_related/logo.webp"}
-              alt="Uptime Friend logo"
+              alt="Environmental Jobs Logo"
               className="w-5 h-5"
               priority={true}
               width={24}
@@ -174,7 +174,7 @@ const Header = ({ linksOutside, buttonCore }) => {
             >
               <Image
                 src={"/company_related/logo.webp"}
-                alt="Uptime Friend logo"
+                alt="Environmental Jobs Logo"
                 className="w-5 h-5"
                 priority={true}
                 width={24}
