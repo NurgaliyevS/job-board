@@ -10,7 +10,7 @@ function Main() {
   const plausible = usePlausible();
   const { data: session } = useSession();
   return (
-    <section className="max-w-5xl mx-auto  flex flex-col items-center justify-center gap-16 lg:gap-20 px-8 p-2 lg:p-6">
+    <section className="max-w-5xl mx-auto  flex flex-col items-center justify-center gap-16 lg:gap-20 px-8 p-2 lg:p-6 my-12">
       <div className="flex flex-col gap-10 lg:gap-12 items-center justify-center text-center">
         <h1 className="font-extrabold text-4xl tracking-tight md:-mb-4">
           Discover The Latest Environmental Jobs
