@@ -9,6 +9,7 @@ import { usePlausible } from "next-plausible";
 function Main() {
   const plausible = usePlausible();
   const { data: session } = useSession();
+
   return (
     <section className="max-w-5xl mx-auto  flex flex-col items-center justify-center gap-16 lg:gap-20 px-8 p-2 lg:p-6 my-12">
       <div className="flex flex-col gap-10 lg:gap-12 items-center justify-center text-center">
@@ -16,7 +17,7 @@ function Main() {
           Discover The Latest Environmental Jobs
         </h1>
         <p className="text-lg text-base-content-secondary leading-relaxed max-w-md mx-auto">
-          
+          Job board for environmental professionals.
         </p>
       </div>
     </section>
