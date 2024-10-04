@@ -83,7 +83,7 @@ function BlogHeader() {
           <div className="flex items-center justify-between">
             <Link
               className="flex items-center gap-2 shrink-0 "
-              title="Uptime Friend - home page"
+              title="Environmental Job boards - home page"
               href="/"
             >
               <Image

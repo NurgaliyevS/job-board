@@ -19,7 +19,7 @@ function Footer({ bgColor }) {
             <Link
               className="flex gap-2 justify-center md:justify-start items-center"
               href="/"
-              title="Uptime Friend - home page"
+              title="Environmental Job boards - home page"
             >
               <Image
                 src={"/company_related/logo.webp"}
@@ -99,7 +99,7 @@ function Footer({ bgColor }) {
                 <Link
                   className="link link-hover"
                   href="#pricing"
-                  title="Uptime Friend - home page"
+                  title="Environmental Job boards - home page"
                   onClick={() => {
                     plausible("PRICING");
                   }}
@@ -109,7 +109,7 @@ function Footer({ bgColor }) {
                 <Link
                   className="link link-hover"
                   href="mailto:nurgasab@gmail.com"
-                  title="Uptime Friend - home page"
+                  title="Environmental Job boards - home page"
                   onClick={() => {
                     plausible("CONTACT_US");
                   }}
@@ -119,7 +119,7 @@ function Footer({ bgColor }) {
                 <Link
                   className="link link-hover"
                   href="#faq"
-                  title="Uptime Friend - home page"
+                  title="Environmental Job boards - home page"
                   onClick={() => {
                     plausible("FAQ");
                   }}
@@ -133,7 +133,7 @@ function Footer({ bgColor }) {
                       ? "/blog"
                       : "https://environmentaljobboards.com/blog"
                   }
-                  title="Uptime Friend - blog"
+                  title="Environmental Job boards - blog"
                 >
                   Blog
                 </Link>
@@ -170,7 +170,7 @@ function Footer({ bgColor }) {
                   className="link link-hover"
                   href="https://uptimefriend.com/"
                   target="_blank"
-                  title="Uptime Friend - home page"
+                  title="Environmental Job boards - home page"
                   onClick={() => {
                     plausible("UptimeFriend");
                   }}
