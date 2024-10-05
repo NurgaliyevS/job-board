@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { usePlausible } from "next-plausible";
 
@@ -49,70 +49,73 @@ function Icon() {
 
 export default function Main() {
   const [showFilters, setShowFilters] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState(new Set());
-  const [selectedJobTypes, setSelectedJobTypes] = useState(new Set());
-  // Keep a backup of selections for cancellation
-  const [backupCategories, setBackupCategories] = useState(new Set());
-  const [backupJobTypes, setBackupJobTypes] = useState(new Set());
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedJobTypes, setSelectedJobTypes] = useState([]);
   
+  const filterRef = useRef(null);
+  const filterBtnRef = useRef(null);
+  const locationBtnRef = useRef(null);
   const plausible = usePlausible();
   const { data: session } = useSession();
 
-  const handleFilterOpen = () => {
-    setBackupCategories(new Set(selectedCategories));
-    setBackupJobTypes(new Set(selectedJobTypes));
-    setShowFilters(true);
-  };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        filterRef.current && 
+        !filterRef.current.contains(event.target) &&
+        filterBtnRef.current &&
+        !filterBtnRef.current.contains(event.target)
+      ) {
+        setShowFilters(false);
+      }
+    };
 
-  const handleCancel = () => {
-    setSelectedCategories(new Set(backupCategories));
-    setSelectedJobTypes(new Set(backupJobTypes));
-    setShowFilters(false);
-  };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-  const handleApply = () => {
-    setShowFilters(false);
-    // Here you could trigger a search with the selected filters
+  const handleButtonClick = (buttonType) => {
+    if (buttonType === 'filters') {
+      setShowFilters(!showFilters);
+    } else {
+      setShowFilters(false);
+    }
   };
 
   const handleCategoryToggle = (category) => {
     setSelectedCategories(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(category)) {
-        newSet.delete(category);
+      if (prev.includes(category)) {
+        return prev.filter(item => item !== category);
       } else {
-        newSet.add(category);
+        return [...prev, category];
       }
-      return newSet;
     });
   };
 
   const handleJobTypeToggle = (jobType) => {
     setSelectedJobTypes(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(jobType)) {
-        newSet.delete(jobType);
+      if (prev.includes(jobType)) {
+        return prev.filter(item => item !== jobType);
       } else {
-        newSet.add(jobType);
+        return [...prev, jobType];
       }
-      return newSet;
     });
   };
 
   const handleAllCategories = () => {
-    setSelectedCategories(new Set(CATEGORIES));
+    setSelectedCategories([...CATEGORIES]);
   };
 
   const handleClearCategories = () => {
-    setSelectedCategories(new Set());
+    setSelectedCategories([]);
   };
 
   const handleAllJobTypes = () => {
-    setSelectedJobTypes(new Set(JOB_TYPES));
+    setSelectedJobTypes([...JOB_TYPES]);
   };
 
   const handleClearJobTypes = () => {
-    setSelectedJobTypes(new Set());
+    setSelectedJobTypes([]);
   };
 
   return (
@@ -128,19 +131,24 @@ export default function Main() {
 
       <div className="flex gap-4 relative">
         <button
-          onClick={handleFilterOpen}
+          ref={filterBtnRef}
+          onClick={() => handleButtonClick('filters')}
           className="btn btn-outline btn-error gap-0.5 text-base border-2"
         >
           Job Filters
           <Icon />
         </button>
-        <button className="btn btn-outline btn-error gap-0.5 text-base border-2">
+        <button 
+          ref={locationBtnRef}
+          onClick={() => handleButtonClick('locations')}
+          className="btn btn-outline btn-error gap-0.5 text-base border-2"
+        >
           Locations
           <Icon />
         </button>
 
         {showFilters && (
-          <div className="absolute top-full rounded-xl shadow-2xl p-4 z-50 min-w-full">
+          <div ref={filterRef} className="absolute top-full rounded-xl shadow-2xl p-4 z-50 min-w-full">
             <div className="flex">
               <div className="w-96 border-r p-2">
                 <h3 className="font-medium mb-2">
@@ -164,7 +172,7 @@ export default function Main() {
                     <label key={category} className="flex items-center space-x-2">
                       <input
                         type="checkbox"
-                        checked={selectedCategories.has(category)}
+                        checked={selectedCategories.includes(category)}
                         onChange={() => handleCategoryToggle(category)}
                         className="rounded border-zinc-300 dark:border-zinc-600"
                       />
@@ -196,7 +204,7 @@ export default function Main() {
                     <label key={type} className="flex items-center space-x-2">
                       <input
                         type="checkbox"
-                        checked={selectedJobTypes.has(type)}
+                        checked={selectedJobTypes.includes(type)}
                         onChange={() => handleJobTypeToggle(type)}
                         className="rounded border-zinc-300 dark:border-zinc-600"
                       />
@@ -209,13 +217,13 @@ export default function Main() {
 
             <div className="flex justify-end space-x-2 pt-4 border-t">
               <button
-                onClick={handleCancel}
+                onClick={() => setShowFilters(false)}
                 className="px-4 py-2 text-sm rounded-md border border-zinc-300 dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-700"
               >
                 Cancel
               </button>
               <button 
-                onClick={handleApply}
+                onClick={() => setShowFilters(false)}
                 className="px-4 py-2 text-sm bg-green-500 text-white rounded-md hover:bg-green-600"
               >
                 Apply
