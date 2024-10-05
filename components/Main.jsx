@@ -49,6 +49,7 @@ function Icon() {
 
 export default function Main() {
   const [showFilters, setShowFilters] = useState(false);
+  const [showLocations, setShowLocations] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedJobTypes, setSelectedJobTypes] = useState([]);
   
@@ -77,6 +78,8 @@ export default function Main() {
   const handleButtonClick = (buttonType) => {
     if (buttonType === 'filters') {
       setShowFilters(!showFilters);
+    } else if (buttonType === 'locations') {
+      setShowLocations(!showLocations);
     } else {
       setShowFilters(false);
     }
