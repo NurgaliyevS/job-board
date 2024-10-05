@@ -6,7 +6,7 @@ import { handleSignIn } from "../../components/handleSignIn";
 function BlogHeader() {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <header className="bg-slate-200">
+    <header className="bg-gray-300 text-base-content">
       <nav className="max-w-7xl flex items-center justify-between px-8 py-3 mx-auto">
         <div className="flex lg:flex-1">
           <Link
@@ -22,7 +22,9 @@ function BlogHeader() {
               width={24}
               height={24}
             />
-            <span className="font-extrabold text-lg">EnvironmentalJobBoards</span>
+            <span className="font-extrabold text-lg">
+              Environmental Job Boards
+            </span>
           </Link>
         </div>
         {/* Burger button to open menu on mobile */}
@@ -64,10 +66,12 @@ function BlogHeader() {
           <Link
             href="#"
             className="btn btn-primary md:btn-sm no-underline"
-            onClick={(e) => {
-              e.preventDefault();
-              handleSignIn(e);
-            }}
+
+            // TODO - uncomment when the function is ready
+            // onClick={(e) => {
+            //   e.preventDefault();
+            //   handleSignIn(e);
+            // }}
           >
             Get Started
           </Link>
@@ -94,7 +98,9 @@ function BlogHeader() {
                 width={24}
                 height={24}
               />
-              <span className="font-extrabold text-lg">EnvironmentalJobBoards</span>
+              <span className="font-extrabold text-lg">
+                EnvironmentalJobBoards
+              </span>
             </Link>
             <button
               type="button"
@@ -137,10 +143,12 @@ function BlogHeader() {
               <Link
                 href="#"
                 className="btn btn-primary md:btn-sm btn-full no-underline"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleSignIn(e);
-                }}
+
+                // TODO - uncomment when the function is ready
+                // onClick={(e) => {
+                //   e.preventDefault();
+                //   handleSignIn(e);
+                // }}
               >
                 Get Started
               </Link>

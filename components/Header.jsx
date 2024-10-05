@@ -54,7 +54,9 @@ const Header = ({ linksOutside, buttonCore }) => {
               width={24}
               height={24}
             />
-            <span className="font-extrabold text-lg">Environmental Job Boards</span>
+            <span className="font-extrabold text-lg">
+              Environmental Job Boards
+            </span>
           </Link>
         </div>
         {/* Burger button to open menu on mobile */}
@@ -112,7 +114,11 @@ const Header = ({ linksOutside, buttonCore }) => {
         {/* CTA on large screens */}
         {!session?.user ? (
           <div className="hidden lg:flex lg:justify-end lg:flex-1">
-            <button className="btn btn-neutral btn-sm" onClick={handleSignIn}>
+            <button
+              className="btn btn-neutral btn-sm"
+              // TODO - uncomment when the function is ready
+              // onClick={handleSignIn}
+            >
               Login
             </button>
           </div>
@@ -164,7 +170,9 @@ const Header = ({ linksOutside, buttonCore }) => {
                 width={24}
                 height={24}
               />
-              <span className="font-extrabold text-lg">EnvironmentalJobBoards</span>
+              <span className="font-extrabold text-lg">
+                EnvironmentalJobBoards
+              </span>
             </Link>
             <button
               type="button"
@@ -211,7 +219,9 @@ const Header = ({ linksOutside, buttonCore }) => {
               <div className="flex flex-col">
                 <button
                   className="btn btn-sm w-full btn-neutral"
-                  onClick={handleSignIn}
+
+                  // TODO - uncomment when the function is ready
+                  // onClick={handleSignIn}
                 >
                   Login
                 </button>

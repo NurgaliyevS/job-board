@@ -2,8 +2,8 @@ import themes from "daisyui/src/theming/themes.js";
 
 export const customConfig = {
   colors: {
-    theme: "winter",
-    main: themes[`[data-theme=winter"]`],
+    theme: "light",
+    main: themes[`[data-theme=light"]`],
   },
   domainName: "environmentaljobboards.com",
   mailgun: {
