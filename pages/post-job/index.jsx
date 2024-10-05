@@ -10,7 +10,7 @@ const nunitoSans = Nunito_Sans({
   weight: ["400"],
 });
 
-export default function Home() {
+function PostJob(props) {
   return (
     <>
       <Head>
@@ -29,3 +29,5 @@ export default function Home() {
     </>
   );
 }
+
+export default PostJob;

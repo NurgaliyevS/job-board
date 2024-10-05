@@ -10,20 +10,12 @@ import { usePlausible } from "next-plausible";
 
 const defaultLinks = [
   {
-    href: "/#pricing",
-    label: "Pricing",
-  },
-  // {
-  //   href: "/#reviews",
-  //   label: "Reviews",
-  // },
-  {
-    href: "/#faq",
-    label: "FAQ",
+    href: "/",
+    label: "Find Jobs",
   },
   {
-    href: "/#reviews",
-    label: "Reviews",
+    href: "/post-job",
+    label: "Post Job",
   },
 ];
 
@@ -111,14 +103,6 @@ const Header = ({ linksOutside, buttonCore }) => {
               key={link.href}
               className="link link-hover"
               title={link.label}
-              onClick={() => {
-                if (link.label === "Pricing") {
-                  plausible("PRICING");
-                }
-                if (link.label === "FAQ") {
-                  plausible("FAQ");
-                }
-              }}
             >
               {link.label}
             </Link>
