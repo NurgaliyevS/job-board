@@ -26,13 +26,13 @@ export const customConfig = {
     og: {
       title: "Environmental Job Board",
       url: "https://environmentaljobboards.com",
-      image: "https://environmentaljobboards.com/company_related/og-image.webp",
+      image: "https://environmentaljobboards.com/company_related/og-image.png",
       imageAlt:
         "Environmental Job Boards - Find jobs in environmental, conservation, natural resources, ecology, wildlife, forestry, botany, marine biology, fisheries, and green sphere.",
       content: "https://x.com/tech_nurgaliyev",
       twitterSite: "@tech_nurgaliyev",
       twitterImage:
-        "https://environmentaljobboards.com/company_related/og-image.webp",
+        "https://environmentaljobboards.com/company_related/og-image.png",
     },
   },
   blog: {
