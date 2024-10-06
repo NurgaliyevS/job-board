@@ -78,7 +78,7 @@ function JobList() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-3xl">
       {jobs.map((job, index) => (
-        <div key={job.url} className="border-t-2">
+        <div key={job.url} className={`${index !== 0 ? "border-t-2" : ""}`}>
           <JobCard job={job} />
         </div>
       ))}
@@ -93,8 +93,12 @@ function JobList() {
           >
             Back
           </button>
-          {totalPages === 1 && ( 
-            <button className="btn btn-sm" onClick={() => handlePageChange(1)} disabled>
+          {totalPages === 1 && (
+            <button
+              className="btn btn-sm"
+              onClick={() => handlePageChange(1)}
+              disabled
+            >
               1
             </button>
           )}
