@@ -5,7 +5,7 @@ const fs = require('fs');
 module.exports = {
   siteUrl: "https://environmentaljobboards.com",
   generateRobotsTxt: true,
-  exclude: ["/admin", "/admin/*", "/blocked"],
+  exclude: ["/blocked"],
   additionalPaths: async (config) => {
     const result = [];
     const postsDirectory = path.join(process.cwd(), "blog-posts");
