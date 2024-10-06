@@ -125,7 +125,7 @@ export default function Main() {
   };
 
   return (
-    <section className="max-w-5xl mx-auto flex flex-col px-8 p-2 lg:p-6 my-12">
+    <section className="max-w-5xl mx-auto flex flex-col px-8 p-2 lg:p-6 my-2">
       <div className="flex flex-col gap-10 lg:gap-12 mb-10">
         <h1 className="font-extrabold text-4xl tracking-tight md:-mb-4">
           Discover The Latest Environmental Jobs
@@ -139,7 +139,7 @@ export default function Main() {
         <button
           ref={filterBtnRef}
           onClick={() => handleButtonClick("filters")}
-          className="btn btn-outline btn-error gap-0.5 text-base border-2"
+          className="btn bg-white btn-outline btn-error gap-0.5 text-base border-2"
         >
           Job Filters
           <Icon />
@@ -147,7 +147,7 @@ export default function Main() {
         <button
           ref={locationBtnRef}
           onClick={() => handleButtonClick("locations")}
-          className="btn btn-outline btn-error gap-0.5 text-base border-2"
+          className="btn bg-white btn-outline btn-error gap-0.5 text-base border-2"
         >
           Locations
           <Icon />
@@ -156,8 +156,22 @@ export default function Main() {
         {showFilters && (
           <div
             ref={filterRef}
-            className="absolute top-full rounded-xl shadow-2xl p-4 z-50 w-[900px]"
+            className="absolute top-full rounded-xl shadow-2xl p-2 z-50 w-[900px] bg-white"
           >
+            <div className="flex justify-end space-x-2 pb-2 border-b">
+              <button
+                onClick={() => setShowFilters(false)}
+                className="btn btn-sm btn-ghost"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => setShowFilters(false)}
+                className="btn btn-sm bg-green-500 text-white hover:bg-green-600"
+              >
+                Apply
+              </button>
+            </div>
             <div className="flex">
               <div className="w-2/3 border-r p-2">
                 <h3 className="font-medium mb-2">
@@ -188,7 +202,9 @@ export default function Main() {
                         onChange={() => handleCategoryToggle(category)}
                         className="rounded border-zinc-300 dark:border-zinc-600"
                       />
-                      <span className="text-xs text-neutral-600">{category}</span>
+                      <span className="text-xs text-neutral-600">
+                        {category}
+                      </span>
                     </label>
                   ))}
                 </div>
@@ -226,29 +242,29 @@ export default function Main() {
                 </div>
               </div>
             </div>
-
-            <div className="flex justify-end space-x-2 pt-4 border-t">
-              <button
-                onClick={() => setShowFilters(false)}
-                className="px-4 py-2 text-sm rounded-md border border-zinc-300 dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-700"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => setShowFilters(false)}
-                className="px-4 py-2 text-sm bg-green-500 text-white rounded-md hover:bg-green-600"
-              >
-                Apply
-              </button>
-            </div>
           </div>
         )}
 
         {showLocations && (
           <div
             ref={locationRef}
-            className="absolute top-full rounded-xl shadow-2xl p-4 z-50 w-[900px]"
+            className="absolute top-full rounded-xl shadow-2xl p-2 z-50 w-[900px] bg-white"
           >
+            <div className="flex justify-end space-x-2 pb-2 border-b">
+              <button
+                onClick={() => setShowLocations(false)}
+                className="btn btn-sm btn-ghost"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => setShowLocations(false)}
+                className="btn btn-sm bg-green-500 text-white hover:bg-green-600"
+              >
+                Apply
+              </button>
+            </div>
+
             <div className="flex">
               <div className="w-2/3 border-r p-2">
                 <h3 className="font-medium mb-2">
@@ -279,7 +295,9 @@ export default function Main() {
                         onChange={() => handleLocationToggle(location)}
                         className="rounded border-zinc-300 dark:border-zinc-600"
                       />
-                      <span className="text-xs text-neutral-600">{location}</span>
+                      <span className="text-xs text-neutral-600">
+                        {location}
+                      </span>
                     </label>
                   ))}
                 </div>
@@ -316,21 +334,6 @@ export default function Main() {
                   ))}
                 </div>
               </div>
-            </div>
-
-            <div className="flex justify-end space-x-2 pt-4 border-t">
-              <button
-                onClick={() => setShowLocations(false)}
-                className="px-4 py-2 text-sm rounded-md border border-zinc-300 dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-700"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => setShowLocations(false)}
-                className="px-4 py-2 text-sm bg-green-500 text-white rounded-md hover:bg-green-600"
-              >
-                Apply
-              </button>
             </div>
           </div>
         )}

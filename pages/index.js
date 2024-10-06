@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import JobList from "@/components/JobList";
 import Main from "@/components/Main";
 import { customConfig } from "@/project.custom.config";
 import { Nunito_Sans } from "next/font/google";
@@ -20,8 +21,9 @@ export default function Home() {
       <header className={nunitoSans.className}>
         <Header />
       </header>
-      <main className={`flex flex-col min-h-screen mx-auto ${nunitoSans.className}`}>
+      <main className={`flex flex-col min-h-screen mx-auto ${nunitoSans.className} bg-neutral-100`}>
         <Main />
+        <JobList />
       </main>
       <footer className={nunitoSans.className}>
         <Footer />

@@ -6,7 +6,7 @@ import { handleSignIn } from "../../components/handleSignIn";
 function BlogHeader() {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <header className="bg-gray-300 text-base-content">
+    <header className="">
       <nav className="max-w-7xl flex items-center justify-between px-8 py-3 mx-auto">
         <div className="flex lg:flex-1">
           <Link

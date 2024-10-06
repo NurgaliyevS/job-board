@@ -7,7 +7,7 @@ function Footer({ bgColor }) {
   const plausible = usePlausible();
   return (
     <div
-      className={`bg-gray-300 text-base-content overflow-hidden border-t`}
+      className={`overflow-hidden`}
     >
       <div className="max-w-7xl mx-auto px-8 py-24">
         <div className="flex lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
