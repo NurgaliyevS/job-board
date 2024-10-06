@@ -85,7 +85,7 @@ function JobList() {
 
       {/* Pagination */}
       <div className="flex justify-center bg-white border-t-2 p-4 shadow-lg rounded-xl overflow-hidden">
-        <div className="grid grid-cols-12 gap-2 w-full">
+        <div className="grid grid-cols-6 sm:grid-cols-12 gap-2 w-full">
           <button
             className="btn btn-sm"
             onClick={() => handlePageChange(currentPage - 1)}
