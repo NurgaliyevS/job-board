@@ -8,6 +8,8 @@ export default function Main() {
   const [showLocations, setShowLocations] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedJobTypes, setSelectedJobTypes] = useState([]);
+  const [selectedLocations, setSelectedLocations] = useState([]);
+  const [selectedRegions, setSelectedRegions] = useState([]);
 
   const filterRef = useRef(null);
   const locationRef = useRef(null);
@@ -43,6 +45,7 @@ export default function Main() {
   const handleButtonClick = (buttonType) => {
     if (buttonType === "filters") {
       setShowFilters(!showFilters);
+      setShowLocations(false);
     } else if (buttonType === "locations") {
       setShowLocations(!showLocations);
       setShowFilters(false);
@@ -69,6 +72,26 @@ export default function Main() {
     });
   };
 
+  const handleLocationToggle = (location) => {
+    setSelectedLocations((prev) => {
+      if (prev.includes(location)) {
+        return prev.filter((item) => item !== location);
+      } else {
+        return [...prev, location];
+      }
+    });
+  };
+
+  const handleRegionToggle = (region) => {
+    setSelectedRegions((prev) => {
+      if (prev.includes(region)) {
+        return prev.filter((item) => item !== region);
+      } else {
+        return [...prev, region];
+      }
+    });
+  };
+
   const handleAllCategories = () => {
     setSelectedCategories([...CATEGORIES]);
   };
@@ -83,6 +106,22 @@ export default function Main() {
 
   const handleClearJobTypes = () => {
     setSelectedJobTypes([]);
+  };
+
+  const handleAllLocations = () => {
+    setSelectedLocations([...LOCATIONS]);
+  };
+
+  const handleClearLocations = () => {
+    setSelectedLocations([]);
+  };
+
+  const handleAllRegions = () => {
+    setSelectedRegions([...REGIONS]);
+  };
+
+  const handleClearRegions = () => {
+    setSelectedRegions([]);
   };
 
   return (
@@ -215,36 +254,34 @@ export default function Main() {
                 <h3 className="font-medium mb-2">
                   United States
                   <button
-                    onClick={handleAllCategories}
+                    onClick={handleAllLocations}
                     className="text-xs ml-2 text-success mr-1 hover:underline"
                   >
                     All
                   </button>
                   |
                   <button
-                    onClick={handleClearCategories}
+                    onClick={handleClearLocations}
                     className="text-xs text-success ml-1 hover:underline"
                   >
                     Clear
                   </button>
                 </h3>
                 <div className="grid grid-cols-3 gap-2">
-                  {LOCATIONS.map(
-                    (category) => (
-                      <label
-                        key={category}
-                        className="flex items-center space-x-2"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={selectedCategories.includes(category)}
-                          onChange={() => handleCategoryToggle(category)}
-                          className="rounded border-zinc-300 dark:border-zinc-600"
-                        />
-                        <span className="text-xs text-neutral-600">{category}</span>
-                      </label>
-                    )
-                  )}
+                  {LOCATIONS.map((location) => (
+                    <label
+                      key={location}
+                      className="flex items-center space-x-2"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedLocations.includes(location)}
+                        onChange={() => handleLocationToggle(location)}
+                        className="rounded border-zinc-300 dark:border-zinc-600"
+                      />
+                      <span className="text-xs text-neutral-600">{location}</span>
+                    </label>
+                  ))}
                 </div>
               </div>
 
@@ -252,29 +289,29 @@ export default function Main() {
                 <h3 className="font-medium mb-2">
                   Regions
                   <button
-                    onClick={handleAllJobTypes}
+                    onClick={handleAllRegions}
                     className="text-xs ml-2 text-success mr-1 hover:underline"
                   >
                     All
                   </button>
                   |
                   <button
-                    onClick={handleClearJobTypes}
+                    onClick={handleClearRegions}
                     className="text-xs text-success ml-1 hover:underline"
                   >
                     Clear
                   </button>
                 </h3>
                 <div className="space-y-2">
-                  {REGIONS.map((type) => (
-                    <label key={type} className="flex items-center space-x-2">
+                  {REGIONS.map((region) => (
+                    <label key={region} className="flex items-center space-x-2">
                       <input
                         type="checkbox"
-                        checked={selectedJobTypes.includes(type)}
-                        onChange={() => handleJobTypeToggle(type)}
+                        checked={selectedRegions.includes(region)}
+                        onChange={() => handleRegionToggle(region)}
                         className="rounded border-zinc-300 dark:border-zinc-600"
                       />
-                      <span className="text-xs text-neutral-600">{type}</span>
+                      <span className="text-xs text-neutral-600">{region}</span>
                     </label>
                   ))}
                 </div>
@@ -283,13 +320,13 @@ export default function Main() {
 
             <div className="flex justify-end space-x-2 pt-4 border-t">
               <button
-                onClick={() => setShowFilters(false)}
+                onClick={() => setShowLocations(false)}
                 className="px-4 py-2 text-sm rounded-md border border-zinc-300 dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-700"
               >
                 Cancel
               </button>
               <button
-                onClick={() => setShowFilters(false)}
+                onClick={() => setShowLocations(false)}
                 className="px-4 py-2 text-sm bg-green-500 text-white rounded-md hover:bg-green-600"
               >
                 Apply
