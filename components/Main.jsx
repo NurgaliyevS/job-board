@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { usePlausible } from "next-plausible";
-import Icon, { CATEGORIES, JOB_TYPES } from "./Filters";
+import Icon, { CATEGORIES, JOB_TYPES, LOCATIONS, REGIONS } from "./Filters";
 
 export default function Main() {
   const [showFilters, setShowFilters] = useState(false);
@@ -86,12 +86,12 @@ export default function Main() {
   };
 
   return (
-    <section className="max-w-5xl mx-auto flex flex-col items-center justify-center px-8 p-2 lg:p-6 my-12">
-      <div className="flex flex-col gap-10 lg:gap-12 items-center justify-center text-center mb-10">
+    <section className="max-w-5xl mx-auto flex flex-col px-8 p-2 lg:p-6 my-12">
+      <div className="flex flex-col gap-10 lg:gap-12 mb-10">
         <h1 className="font-extrabold text-4xl tracking-tight md:-mb-4">
           Discover The Latest Environmental Jobs
         </h1>
-        <p className="text-lg text-base-content-secondary leading-relaxed max-w-md mx-auto">
+        <p className="text-lg text-base-content-secondary leading-relaxed max-w-md">
           Job board for environmental professionals.
         </p>
       </div>
@@ -117,10 +117,10 @@ export default function Main() {
         {showFilters && (
           <div
             ref={filterRef}
-            className="absolute top-full rounded-xl shadow-2xl p-4 z-50 min-w-full"
+            className="absolute top-full rounded-xl shadow-2xl p-4 z-50 w-[900px]"
           >
             <div className="flex">
-              <div className="w-96 border-r p-2">
+              <div className="w-2/3 border-r p-2">
                 <h3 className="font-medium mb-2">
                   Category
                   <button
@@ -149,13 +149,13 @@ export default function Main() {
                         onChange={() => handleCategoryToggle(category)}
                         className="rounded border-zinc-300 dark:border-zinc-600"
                       />
-                      <span className="text-sm">{category}</span>
+                      <span className="text-xs text-neutral-600">{category}</span>
                     </label>
                   ))}
                 </div>
               </div>
 
-              <div className="w-96 p-2">
+              <div className="w-1/2 p-2">
                 <h3 className="font-medium mb-2">
                   Job Type
                   <button
@@ -181,7 +181,7 @@ export default function Main() {
                         onChange={() => handleJobTypeToggle(type)}
                         className="rounded border-zinc-300 dark:border-zinc-600"
                       />
-                      <span className="text-sm">{type}</span>
+                      <span className="text-xs text-neutral-600">{type}</span>
                     </label>
                   ))}
                 </div>
@@ -208,12 +208,12 @@ export default function Main() {
         {showLocations && (
           <div
             ref={locationRef}
-            className="absolute top-full rounded-xl shadow-2xl p-4 z-50 min-w-full"
+            className="absolute top-full rounded-xl shadow-2xl p-4 z-50 w-[900px]"
           >
             <div className="flex">
-              <div className="w-96 border-r p-2">
+              <div className="w-2/3 border-r p-2">
                 <h3 className="font-medium mb-2">
-                  Category
+                  United States
                   <button
                     onClick={handleAllCategories}
                     className="text-xs ml-2 text-success mr-1 hover:underline"
@@ -228,27 +228,29 @@ export default function Main() {
                     Clear
                   </button>
                 </h3>
-                <div className="grid grid-cols-2 gap-2">
-                  {CATEGORIES.map((category) => (
-                    <label
-                      key={category}
-                      className="flex items-center space-x-2"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={selectedCategories.includes(category)}
-                        onChange={() => handleCategoryToggle(category)}
-                        className="rounded border-zinc-300 dark:border-zinc-600"
-                      />
-                      <span className="text-sm">{category}</span>
-                    </label>
-                  ))}
+                <div className="grid grid-cols-3 gap-2">
+                  {LOCATIONS.map(
+                    (category) => (
+                      <label
+                        key={category}
+                        className="flex items-center space-x-2"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selectedCategories.includes(category)}
+                          onChange={() => handleCategoryToggle(category)}
+                          className="rounded border-zinc-300 dark:border-zinc-600"
+                        />
+                        <span className="text-xs text-neutral-600">{category}</span>
+                      </label>
+                    )
+                  )}
                 </div>
               </div>
 
-              <div className="w-96 p-2">
+              <div className="w-1/2 p-2">
                 <h3 className="font-medium mb-2">
-                  Job Type
+                  Regions
                   <button
                     onClick={handleAllJobTypes}
                     className="text-xs ml-2 text-success mr-1 hover:underline"
@@ -264,7 +266,7 @@ export default function Main() {
                   </button>
                 </h3>
                 <div className="space-y-2">
-                  {JOB_TYPES.map((type) => (
+                  {REGIONS.map((type) => (
                     <label key={type} className="flex items-center space-x-2">
                       <input
                         type="checkbox"
@@ -272,7 +274,7 @@ export default function Main() {
                         onChange={() => handleJobTypeToggle(type)}
                         className="rounded border-zinc-300 dark:border-zinc-600"
                       />
-                      <span className="text-sm">{type}</span>
+                      <span className="text-xs text-neutral-600">{type}</span>
                     </label>
                   ))}
                 </div>
