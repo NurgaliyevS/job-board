@@ -10,7 +10,7 @@ export const mockJobs = [
       "We are seeking an enthusiastic Engagement Coordinator to join our team and help connect our community with nature conservation efforts.",
     publishDate: "2 days ago",
     featured: true,
-    url: "https://www.example.com/job-listing-1",
+    url: "job-listing-1",
   },
   {
     title: "Wildlife Biologist",
@@ -23,7 +23,7 @@ export const mockJobs = [
       "Join our team of dedicated scientists studying and protecting the diverse wildlife in Yellowstone National Park.",
     publishDate: "1 week ago",
     featured: false,
-    url: "https://www.example.com/job-listing-2",
+    url: "job-listing-2",
   },
   {
     title: "Sustainable Agriculture Specialist",
@@ -34,7 +34,7 @@ export const mockJobs = [
       "Help farmers transition to sustainable practices. This role combines agricultural expertise with environmental conservation.",
     publishDate: "3 days ago",
     featured: true,
-    url: "https://www.example.com/job-listing-3",
+    url: "job-listing-3",
   },
   {
     title: "Marine Conservation Project Manager",
@@ -47,7 +47,7 @@ export const mockJobs = [
       "Lead exciting projects to protect marine ecosystems and promote sustainable fishing practices along the California coast.",
     publishDate: "Just now",
     featured: false,
-    url: "https://www.example.com/job-listing-4",
+    url: "job-listing-4",
   },
   {
     title: "Environmental Education Coordinator",
@@ -59,6 +59,6 @@ export const mockJobs = [
       "Develop and implement environmental education programs for K-12 students, fostering the next generation of environmental stewards.",
     publishDate: "5 days ago",
     featured: true,
-    url: "https://www.example.com/job-listing-5",
+    url: "job-listing-5",
   },
 ];

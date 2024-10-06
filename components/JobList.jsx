@@ -6,7 +6,8 @@ const JobCard = ({ job }) => (
     <div className="p-4">
       <header className="mb-2">
         <h2 className="text-xl font-bold">
-          <a href={job.url} className="hover:underline">
+          {/* disable */}
+          <a href={"#" + job.url} className="hover:underline">
             {job.title}
           </a>
         </h2>
