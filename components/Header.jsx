@@ -171,7 +171,7 @@ const Header = ({ linksOutside, buttonCore }) => {
                 height={24}
               />
               <span className="font-extrabold text-lg">
-                EnvironmentalJobBoards
+                Environmental Job Boards
               </span>
             </Link>
             <button
