@@ -125,21 +125,21 @@ export default function Main() {
   };
 
   return (
-    <section className="max-w-5xl mx-auto flex flex-col px-8 p-2 lg:p-6 my-2">
-      <div className="flex flex-col gap-10 lg:gap-12 mb-10">
-        <h1 className="font-extrabold text-4xl tracking-tight md:-mb-4">
+    <section className="max-w-5xl mx-auto flex flex-col px-4 sm:px-8 p-2 lg:p-6 my-2">
+      <div className="flex flex-col gap-6 sm:gap-10 lg:gap-12 mb-6 sm:mb-10">
+        <h1 className="font-extrabold text-3xl sm:text-4xl tracking-tight md:-mb-4">
           Discover The Latest Environmental Jobs
         </h1>
-        <p className="text-lg text-base-content-secondary leading-relaxed max-w-md">
+        <p className="text-base sm:text-lg text-base-content-secondary leading-relaxed max-w-md">
           Job board for environmental professionals.
         </p>
       </div>
 
-      <div className="flex gap-4 relative">
+      <div className="flex flex-col sm:flex-row gap-4 relative">
         <button
           ref={filterBtnRef}
           onClick={() => handleButtonClick("filters")}
-          className="btn bg-white btn-outline btn-error gap-0.5 text-base border-2"
+          className="btn bg-white btn-outline btn-error gap-0.5 text-base border-2 w-full sm:w-auto"
         >
           Job Filters
           <Icon />
@@ -147,7 +147,7 @@ export default function Main() {
         <button
           ref={locationBtnRef}
           onClick={() => handleButtonClick("locations")}
-          className="btn bg-white btn-outline btn-error gap-0.5 text-base border-2"
+          className="btn bg-white btn-outline btn-error gap-0.5 text-base border-2 w-full sm:w-auto"
         >
           Locations
           <Icon />
@@ -156,7 +156,7 @@ export default function Main() {
         {showFilters && (
           <div
             ref={filterRef}
-            className="absolute top-full rounded-xl shadow-2xl p-2 z-50 w-[900px] bg-white"
+            className="absolute top-full rounded-xl shadow-2xl p-2 z-50 w-full sm:w-[900px] bg-white"
           >
             <div className="flex justify-end space-x-2 pb-2 border-b">
               <button
@@ -172,8 +172,8 @@ export default function Main() {
                 Apply
               </button>
             </div>
-            <div className="flex">
-              <div className="w-2/3 border-r p-2">
+            <div className="flex flex-col sm:flex-row">
+              <div className="w-full sm:w-2/3 border-b sm:border-b-0 sm:border-r p-2">
                 <h3 className="font-medium mb-2">
                   Category
                   <button
@@ -190,7 +190,7 @@ export default function Main() {
                     Clear
                   </button>
                 </h3>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {CATEGORIES.map((category) => (
                     <label
                       key={category}
@@ -210,7 +210,7 @@ export default function Main() {
                 </div>
               </div>
 
-              <div className="w-1/2 p-2">
+              <div className="w-full sm:w-1/2 p-2">
                 <h3 className="font-medium mb-2">
                   Job Type
                   <button
@@ -248,7 +248,7 @@ export default function Main() {
         {showLocations && (
           <div
             ref={locationRef}
-            className="absolute top-full rounded-xl shadow-2xl p-2 z-50 w-[900px] bg-white"
+            className="absolute top-full rounded-xl shadow-2xl p-2 z-50 w-full sm:w-[900px] bg-white"
           >
             <div className="flex justify-end space-x-2 pb-2 border-b">
               <button
@@ -265,8 +265,8 @@ export default function Main() {
               </button>
             </div>
 
-            <div className="flex">
-              <div className="w-2/3 border-r p-2">
+            <div className="flex flex-col sm:flex-row">
+              <div className="w-full sm:w-2/3 border-b sm:border-b-0 sm:border-r p-2">
                 <h3 className="font-medium mb-2">
                   United States
                   <button
@@ -283,7 +283,7 @@ export default function Main() {
                     Clear
                   </button>
                 </h3>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {LOCATIONS.map((location) => (
                     <label
                       key={location}
@@ -303,7 +303,7 @@ export default function Main() {
                 </div>
               </div>
 
-              <div className="w-1/2 p-2">
+              <div className="w-full sm:w-1/2 p-2">
                 <h3 className="font-medium mb-2">
                   Regions
                   <button
