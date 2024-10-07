@@ -51,7 +51,7 @@ export const authOptions = {
     strategy: "jwt",
   },
   theme: {
-    logo: `https://environmentaljobboards.com/logoAndName.jpeg`,
+    logo: `https://environmentaljobboards.com/logoAndName.png`,
   },
   debug: true, // Enable debug mode for more detailed logs
 };
