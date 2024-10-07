@@ -15,9 +15,14 @@ const JobSchema = new mongoose.Schema({
     City: String,
     Location: String,
     HowToApply: String,
+    Creator: CreatorSchema,
 });
 
 const CreatorSchema = new mongoose.Schema({
     FullName: String,
     phoneNumber: String,
 });
+
+const Job = mongoose.models.Job || mongoose.model("Job", JobSchema);
+
+export default Job;
