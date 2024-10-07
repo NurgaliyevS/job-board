@@ -116,8 +116,7 @@ const Header = ({ linksOutside, buttonCore }) => {
           <div className="hidden lg:flex lg:justify-end lg:flex-1">
             <button
               className="btn btn-neutral btn-sm"
-              // TODO - uncomment when the function is ready
-              // onClick={handleSignIn}
+              onClick={handleSignIn}
             >
               Login
             </button>
@@ -135,7 +134,7 @@ const Header = ({ linksOutside, buttonCore }) => {
               </Link>
             ) : (
               <Link
-                href="/meal"
+                href="/"
                 className="btn btn-sm btn-neutral"
                 title="Admin page"
                 rel="nofollow"
@@ -219,9 +218,7 @@ const Header = ({ linksOutside, buttonCore }) => {
               <div className="flex flex-col">
                 <button
                   className="btn btn-sm w-full btn-neutral"
-
-                  // TODO - uncomment when the function is ready
-                  // onClick={handleSignIn}
+                  onClick={handleSignIn}
                 >
                   Login
                 </button>
@@ -229,7 +226,7 @@ const Header = ({ linksOutside, buttonCore }) => {
             ) : (
               <div className="flex flex-col">
                 <Link
-                  href="/meal"
+                  href="/"
                   className="btn btn-sm w-full btn-neutral"
                   title="Admin page"
                   rel="nofollow"

@@ -27,7 +27,7 @@ function CTAButton(props) {
         </Link>
       ) : (
         <Link
-          href="/meal"
+          href="/"
           className="btn btn-primary btn-wide no-underline"
           title="Meal page"
           rel="nofollow"
