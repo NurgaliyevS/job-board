@@ -11,9 +11,7 @@ const JobSchema = new mongoose.Schema({
     Published: Date,
     isFeatured: Boolean,
     JobType: String,
-    EmployerName: String,
     City: String,
-    Location: String,
     HowToApply: String,
     Creator: CreatorSchema,
 });
@@ -21,6 +19,11 @@ const JobSchema = new mongoose.Schema({
 const CreatorSchema = new mongoose.Schema({
     FullName: String,
     phoneNumber: String,
+    email: {
+        // get email from user model
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    }
 });
 
 const Job = mongoose.models.Job || mongoose.model("Job", JobSchema);

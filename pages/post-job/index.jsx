@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import { customConfig } from "@/project.custom.config";
 import { Nunito_Sans } from "next/font/google";
 import Head from "next/head";
+import JobConstructor from "./JobConstructor";
 
 const nunitoSans = Nunito_Sans({
   subsets: ["latin"],
@@ -19,7 +20,8 @@ function PostJob(props) {
       <header className={nunitoSans.className}>
         <Header />
       </header>
-      <main className={`flex flex-col min-h-screen mx-auto ${nunitoSans.className}`}>
+      <main className={`flex flex-col min-h-screen mx-auto ${nunitoSans.className} bg-neutral-100`}>
+        <JobConstructor />
       </main>
       <footer className={nunitoSans.className}>
         <Footer />
