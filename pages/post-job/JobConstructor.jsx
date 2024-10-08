@@ -1,12 +1,32 @@
 import React from "react";
+import axios from "axios";
+import { experienceLevels, jobTypes, locations } from "./job-default";
 
 const JobConstructor = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const formObject = Object.fromEntries(formData.entries());
+
+    console.log("Form data:", formObject);
+    console.log("Form data as JSON:", JSON.stringify(formObject));
+
+    try {
+      const response = await axios.post("/api/job/job-details", formObject);
+      console.log("Job listing submitted successfully:", response.data);
+      // Handle success (e.g., show success message, redirect)
+    } catch (error) {
+      console.error("Error submitting job listing:", error);
+      // Handle error (e.g., show error message)
+    }
+  };
+
   return (
     <div className="container mx-auto p-4 max-w-5xl">
       <h1 className="text-3xl font-bold text-center my-8">Enter Job Listing</h1>
       <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
-          <form>
+          <form onSubmit={handleSubmit}>
             <h2 className="text-xl font-semibold">
               Your Information (not displayed in listing)
             </h2>
@@ -17,6 +37,7 @@ const JobConstructor = () => {
                 </label>
                 <input
                   type="text"
+                  name="fullName"
                   placeholder="First and last name"
                   className="input input-bordered"
                 />
@@ -27,6 +48,7 @@ const JobConstructor = () => {
                 </label>
                 <input
                   type="email"
+                  name="email"
                   placeholder="Enter your email"
                   className="input input-bordered"
                   disabled
@@ -38,6 +60,7 @@ const JobConstructor = () => {
                 </label>
                 <input
                   type="tel"
+                  name="phoneNumber"
                   placeholder="Enter your phone number"
                   className="input input-bordered"
                 />
@@ -51,16 +74,13 @@ const JobConstructor = () => {
               <label className="label">
                 <span className="label-text">Job Type</span>
               </label>
-              <select className="select select-bordered w-full">
-                <option disabled selected>
-                  Select job type
-                </option>
-                <option>Permanent</option>
-                <option>Temporary</option>
-                <option>Paid Internship</option>
-                <option>Student / postdoc</option>
-                <option>AmeriCorps</option>
-                <option>Unpaid</option>
+              <select name="jobType" className="select select-bordered w-full">
+                <option value="">Select job type</option>
+                {jobTypes.map((type, index) => (
+                  <option key={index} value={type}>
+                    {type}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="form-control">
@@ -69,6 +89,7 @@ const JobConstructor = () => {
               </label>
               <input
                 type="text"
+                name="employerName"
                 placeholder="Enter employer name"
                 className="input input-bordered"
               />
@@ -79,6 +100,7 @@ const JobConstructor = () => {
               </label>
               <input
                 type="text"
+                name="jobTitle"
                 placeholder="Enter job title"
                 className="input input-bordered"
               />
@@ -90,6 +112,7 @@ const JobConstructor = () => {
                 </label>
                 <input
                   type="text"
+                  name="city"
                   placeholder="Enter city"
                   className="input input-bordered"
                 />
@@ -98,19 +121,18 @@ const JobConstructor = () => {
                 <label className="label">
                   <span className="label-text">Location</span>
                 </label>
-                <select className="select select-bordered">
-                  <option disabled selected>
-                    Select location
-                  </option>
-                  <option>Africa</option>
-                  <option>Asia</option>
-                  <option>Australia</option>
-                  <option>Canada</option>
-                  <option>Europe</option>
-                  <option>Latin America</option>
-                  <option>Other</option>
-                  <option>Remote / Flexible</option>
-                  {/* Add all US states here */}
+                {/* allow to search on select */}
+                <select name="location" className="select select-bordered">
+                  <option value="">Select location</option>
+                  {Object.entries(locations).map(([group, options]) => (
+                    <optgroup key={group} label={group}>
+                      {options.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </optgroup>
+                  ))}
                 </select>
               </div>
             </div>
@@ -120,6 +142,7 @@ const JobConstructor = () => {
               </label>
               <input
                 type="text"
+                name="salaryDetails"
                 placeholder="Enter salary details"
                 className="input input-bordered"
               />
@@ -130,13 +153,16 @@ const JobConstructor = () => {
                   Required Experience (optional)
                 </span>
               </label>
-              <select className="select select-bordered">
-                <option disabled selected>
-                  Select experience level
-                </option>
-                <option>Entry Level (0 - 1 years)</option>
-                <option>Mid Level (2 - 6 years)</option>
-                <option>High Level (7+ years)</option>
+              <select
+                name="requiredExperience"
+                className="select select-bordered"
+              >
+                <option value="">Select experience level</option>
+                {experienceLevels.map((level) => (
+                  <option key={level.value} value={level.value}>
+                    {level.label}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="form-control">
@@ -144,6 +170,7 @@ const JobConstructor = () => {
                 <span className="label-text">Job Description</span>
               </label>
               <textarea
+                name="jobDescription"
                 className="textarea textarea-bordered h-24"
                 placeholder="Enter job description"
               ></textarea>
@@ -153,6 +180,7 @@ const JobConstructor = () => {
                 <span className="label-text">Application Instructions</span>
               </label>
               <textarea
+                name="applicationInstructions"
                 className="textarea textarea-bordered h-24"
                 placeholder="Describe how and where you want applicants to apply"
               ></textarea>
@@ -163,10 +191,16 @@ const JobConstructor = () => {
                   Application Deadline (optional)
                 </span>
               </label>
-              <input type="date" className="input input-bordered" />
+              <input
+                type="date"
+                name="applicationDeadline"
+                className="input input-bordered"
+              />
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Next</button>
+              <button type="submit" className="btn btn-primary">
+                Submit Job Listing
+              </button>
             </div>
           </form>
         </div>
