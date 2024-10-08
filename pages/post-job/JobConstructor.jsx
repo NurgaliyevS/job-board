@@ -11,8 +11,6 @@ const JobConstructor = () => {
     const formData = new FormData(e.target);
     const formObject = Object.fromEntries(formData.entries());
 
-    console.log("Form data:", formObject);
-
     // Restructure the form data to match the MongoDB schema
     const jobData = {
       JobTitle: formObject.jobTitle,
@@ -28,9 +26,11 @@ const JobConstructor = () => {
       Creator: {
         FullName: formObject.fullName,
         phoneNumber: formObject.phoneNumber,
-        email: formObject.email,
+        email: session?.user?.email,
       },
     };
+
+    console.log("Job data:", jobData);
 
     try {
       const response = await axios.post("/api/job/job-details", jobData);
