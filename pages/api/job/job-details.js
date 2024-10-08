@@ -15,6 +15,8 @@ export default async function handler(req, res) {
   switch (method) {
     case "POST":
       try {
+        console.log("req.body", req.body);
+
         const job = new Job({
           ...req.body,
           dateModified: new Date(),

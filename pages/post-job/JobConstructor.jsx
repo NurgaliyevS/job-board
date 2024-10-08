@@ -1,18 +1,39 @@
 import React from "react";
 import axios from "axios";
 import { experienceLevels, jobTypes, locations } from "./job-default";
+import { useSession } from "next-auth/react";
 
 const JobConstructor = () => {
+  const { data: session } = useSession();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formObject = Object.fromEntries(formData.entries());
 
     console.log("Form data:", formObject);
-    console.log("Form data as JSON:", JSON.stringify(formObject));
+
+    // Restructure the form data to match the MongoDB schema
+    const jobData = {
+      JobTitle: formObject.jobTitle,
+      EmployerName: formObject.employerName,
+      Location: formObject.location,
+      Salary: formObject.salaryDetails,
+      JobDescription: formObject.jobDescription,
+      Deadline: formObject.applicationDeadline,
+      Experience: formObject.requiredExperience,
+      JobType: formObject.jobType,
+      City: formObject.city,
+      HowToApply: formObject.applicationInstructions,
+      Creator: {
+        FullName: formObject.fullName,
+        phoneNumber: formObject.phoneNumber,
+        email: formObject.email,
+      },
+    };
 
     try {
-      const response = await axios.post("/api/job/job-details", formObject);
+      const response = await axios.post("/api/job/job-details", jobData);
       console.log("Job listing submitted successfully:", response.data);
       // Handle success (e.g., show success message, redirect)
     } catch (error) {
@@ -52,6 +73,7 @@ const JobConstructor = () => {
                   placeholder="Enter your email"
                   className="input input-bordered"
                   disabled
+                  value={session?.user?.email}
                 />
               </div>
               <div className="form-control">
@@ -121,7 +143,6 @@ const JobConstructor = () => {
                 <label className="label">
                   <span className="label-text">Location</span>
                 </label>
-                {/* allow to search on select */}
                 <select name="location" className="select select-bordered">
                   <option value="">Select location</option>
                   {Object.entries(locations).map(([group, options]) => (
