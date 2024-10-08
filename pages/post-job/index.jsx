@@ -1,6 +1,5 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Main from "@/components/Main";
 import { customConfig } from "@/project.custom.config";
 import { Nunito_Sans } from "next/font/google";
 import Head from "next/head";
@@ -21,7 +20,6 @@ function PostJob(props) {
         <Header />
       </header>
       <main className={`flex flex-col min-h-screen mx-auto ${nunitoSans.className}`}>
-        <Main />
       </main>
       <footer className={nunitoSans.className}>
         <Footer />
