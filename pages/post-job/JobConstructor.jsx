@@ -61,6 +61,7 @@ const JobConstructor = () => {
                   name="fullName"
                   placeholder="First and last name"
                   className="input input-bordered"
+                  required
                 />
               </div>
               <div className="form-control">
@@ -114,6 +115,7 @@ const JobConstructor = () => {
                 name="employerName"
                 placeholder="Enter employer name"
                 className="input input-bordered"
+                required
               />
             </div>
             <div className="form-control">
@@ -125,6 +127,7 @@ const JobConstructor = () => {
                 name="jobTitle"
                 placeholder="Enter job title"
                 className="input input-bordered"
+                required
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
