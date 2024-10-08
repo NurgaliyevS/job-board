@@ -66,12 +66,10 @@ function BlogHeader() {
           <Link
             href="#"
             className="btn btn-primary md:btn-sm no-underline"
-
-            // TODO - uncomment when the function is ready
-            // onClick={(e) => {
-            //   e.preventDefault();
-            //   handleSignIn(e);
-            // }}
+            onClick={(e) => {
+              e.preventDefault();
+              handleSignIn(e);
+            }}
           >
             Get Started
           </Link>
@@ -143,12 +141,10 @@ function BlogHeader() {
               <Link
                 href="#"
                 className="btn btn-primary md:btn-sm btn-full no-underline"
-
-                // TODO - uncomment when the function is ready
-                // onClick={(e) => {
-                //   e.preventDefault();
-                //   handleSignIn(e);
-                // }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSignIn(e);
+                }}
               >
                 Get Started
               </Link>
