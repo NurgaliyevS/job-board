@@ -34,9 +34,9 @@ const Header = ({ linksOutside, buttonCore }) => {
   }, [searchParams]);
 
   return (
-    <div className="container max-w-7xl flex items-center flex-wrap justify-between px-8 mx-auto py-10">
+    <div className="container max-w-7xl flex flex-wrap px-8 mx-auto py-10">
       <nav
-        className="container flex items-center justify-between mx-auto"
+        className="container flex justify-between items-center mx-auto"
         aria-label="Global"
       >
         {/* Your logo/name on large screens */}
@@ -99,54 +99,42 @@ const Header = ({ linksOutside, buttonCore }) => {
 
         {/* Your links on large screens */}
         <div className="hidden lg:flex lg:justify-center lg:gap-12 lg:items-center">
-          {links.map((link) => (
-            <Link
-              href={link.href}
-              key={link.href}
-              className="link link-hover"
-              title={link.label}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) => {
+            if (link.href === "/post-job" && session?.user) {
+              return (
+                <Link
+                  href={link.href}
+                  key={link.href}
+                  className="link link-hover text-lg"
+                  title={link.label}
+                >
+                  {link.label}
+                </Link>
+              );
+            } else if (link.href === "/post-job" && !session?.user) {
+              return (
+                <Link
+                  href="/api/auth/signin?callbackUrl=%2Fpost-job"
+                  key={link.href}
+                  className="link link-hover text-lg"
+                  title={link.label}
+                >
+                  {link.label}
+                </Link>
+              );
+            }
+            return (
+              <Link
+                href={link.href}
+                key={link.href}
+                className="link link-hover text-lg"
+                title={link.label}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
-
-        {/* CTA on large screens */}
-        {!session?.user ? (
-          <div className="hidden lg:flex lg:justify-end lg:flex-1">
-            <button
-              className="btn btn-neutral btn-sm"
-              onClick={handleSignIn}
-            >
-              Login
-            </button>
-          </div>
-        ) : (
-          <div className="hidden lg:flex lg:justify-end lg:flex-1">
-            {buttonCore ? (
-              <Link
-                href={buttonCore.href}
-                className="btn btn-md btn-neutral"
-                title="Create new meal"
-                rel="nofollow"
-              >
-                {buttonCore.label}
-              </Link>
-            ) : (
-              <Link
-                href="/"
-                className="btn btn-sm btn-neutral"
-                title="Admin page"
-                rel="nofollow"
-                onClick={() => {
-                  plausible("ADMIN_PAGE");
-                }}
-              >
-                {session?.user?.email}
-              </Link>
-            )}
-          </div>
-        )}
       </nav>
 
       {/* Mobile menu, show/hide based on menu state. */}
@@ -200,41 +188,43 @@ const Header = ({ linksOutside, buttonCore }) => {
           <div className="flow-root mt-6">
             <div className="py-4">
               <div className="flex flex-col gap-y-4 items-start">
-                {links.map((link) => (
-                  <Link
-                    href={link.href}
-                    key={link.href}
-                    className="link link-hover"
-                    title={link.label}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {links.map((link) => {
+                  if (link.href === "/post-job" && session?.user) {
+                    return (
+                      <Link
+                        href={link.href}
+                        key={link.href}
+                        className="link link-hover"
+                        title={link.label}
+                      >
+                        {link.label}
+                      </Link>
+                    );
+                  } else if (link.href === "/post-job" && !session?.user) {
+                    return (
+                      <Link
+                        href="/api/auth/signin?callbackUrl=%2Fpost-job"
+                        key={link.href}
+                        className="link link-hover"
+                        title={link.label}
+                      >
+                        {link.label}
+                      </Link>
+                    );
+                  }
+                  return (
+                    <Link
+                      href={link.href}
+                      key={link.href}
+                      className="link link-hover"
+                      title={link.label}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
-            <div className="divider"></div>
-            {/* Your CTA on small screens */}
-            {!session?.user ? (
-              <div className="flex flex-col">
-                <button
-                  className="btn btn-sm w-full btn-neutral"
-                  onClick={handleSignIn}
-                >
-                  Login
-                </button>
-              </div>
-            ) : (
-              <div className="flex flex-col">
-                <Link
-                  href="/"
-                  className="btn btn-sm w-full btn-neutral"
-                  title="Admin page"
-                  rel="nofollow"
-                >
-                  {session?.user?.email}
-                </Link>
-              </div>
-            )}
           </div>
         </div>
       </div>
