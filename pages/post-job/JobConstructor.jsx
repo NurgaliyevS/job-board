@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { experienceLevels, jobTypes, locations } from "../../components/jobDefault";
+import {
+  experienceLevels,
+  jobTypes,
+  locations,
+} from "../../components/jobDefault";
 import { useSession } from "next-auth/react";
 
 const JobConstructor = () => {
@@ -9,7 +13,12 @@ const JobConstructor = () => {
 
   const handleBlur = (e) => {
     const { name } = e.target;
-    setTouchedFields((prev) => ({ ...prev, [name]: true }));
+    const { value } = e.target;
+    if (!value) {
+      setTouchedFields((prev) => ({ ...prev, [name]: true }));
+    } else if (value) {
+      setTouchedFields((prev) => ({ ...prev, [name]: false }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -20,7 +29,8 @@ const JobConstructor = () => {
     const formElements = form.elements;
     const newTouchedFields = {};
     for (let i = 0; i < formElements.length; i++) {
-      if (formElements[i].name) {
+      // can you make required fields only touched
+      if (formElements[i].required && !formElements[i].value) {
         newTouchedFields[formElements[i].name] = true;
       }
     }
@@ -80,7 +90,7 @@ const JobConstructor = () => {
       <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
           <form onSubmit={handleSubmit} noValidate>
-            <h2 className="text-xl font-semibold">Your Information</h2>
+            <h2 className="text-xl font-semibold mb-5">Your Information</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="form-control">
                 <RequiredLabel>Your Full Name</RequiredLabel>
@@ -111,32 +121,28 @@ const JobConstructor = () => {
                 />
               </div>
               <div className="form-control">
-                <RequiredLabel>Phone Number</RequiredLabel>
+                <label className="label">
+                  <span className="label-text">Phone Number</span>
+                </label>
                 <input
                   type="tel"
                   name="phoneNumber"
                   placeholder="Enter your phone number"
                   className="input input-bordered"
-                  required
-                  onBlur={handleBlur}
-                />
-                <ErrorMessage
-                  field="phoneNumber"
-                  message="Phone number is required"
                 />
               </div>
             </div>
 
-            <h2 className="text-xl font-semibold mt-8 mb-4">
+            <h2 className="text-xl font-semibold mt-8 mb-5">
               Job Listing Information
             </h2>
             <div className="form-control">
-              <RequiredLabel>Job Type</RequiredLabel>
+              <label className="label">
+                <span className="label-text">Job Type</span>
+              </label>
               <select
                 name="jobType"
                 className="select select-bordered w-full"
-                required
-                onBlur={handleBlur}
               >
                 <option value="">Select job type</option>
                 {jobTypes.map((type, index) => (
@@ -145,7 +151,6 @@ const JobConstructor = () => {
                   </option>
                 ))}
               </select>
-              <ErrorMessage field="jobType" message="Job type is required" />
             </div>
 
             <div className="form-control">
@@ -179,16 +184,16 @@ const JobConstructor = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="form-control">
-                <RequiredLabel>City</RequiredLabel>
+                <label className="label">
+                  <span className="label-text">City</span>
+                </label>
                 <input
                   type="text"
                   name="city"
                   placeholder="Enter city"
                   className="input input-bordered"
-                  required
                   onBlur={handleBlur}
                 />
-                <ErrorMessage field="city" message="City is required" />
               </div>
               <div className="form-control">
                 <RequiredLabel>Location</RequiredLabel>
@@ -214,18 +219,14 @@ const JobConstructor = () => {
             </div>
 
             <div className="form-control">
-              <RequiredLabel>Salary Details</RequiredLabel>
+              <label className="label">
+                <span className="label-text">Salary Details</span>
+              </label>
               <input
                 type="text"
                 name="salaryDetails"
                 placeholder="Enter salary details"
                 className="input input-bordered"
-                required
-                onBlur={handleBlur}
-              />
-              <ErrorMessage
-                field="salaryDetails"
-                message="Salary details are required"
               />
             </div>
 
@@ -238,7 +239,6 @@ const JobConstructor = () => {
               <select
                 name="requiredExperience"
                 className="select select-bordered"
-                onBlur={handleBlur}
               >
                 <option value="">Select experience level</option>
                 {experienceLevels.map((level) => (
@@ -250,18 +250,14 @@ const JobConstructor = () => {
             </div>
 
             <div className="form-control">
-              <RequiredLabel>Job Description</RequiredLabel>
+              <label className="label">
+                <span className="label-text">Job Description</span>
+              </label>
               <textarea
                 name="jobDescription"
                 className="textarea textarea-bordered h-24"
                 placeholder="Enter job description"
-                required
-                onBlur={handleBlur}
               ></textarea>
-              <ErrorMessage
-                field="jobDescription"
-                message="Job description is required"
-              />
             </div>
 
             <div className="form-control">
