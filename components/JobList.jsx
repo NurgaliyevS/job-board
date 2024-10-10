@@ -1,50 +1,58 @@
 import React, { useState, useEffect } from "react";
 import { mockJobs } from "./mockJobs";
+import { format } from "date-fns";
 
 const JobCard = ({ job }) => (
   <article className="bg-white shadow-lg rounded-xl overflow-hidden">
     <div className="p-4">
       <header className="mb-2">
         <h2 className="text-xl font-bold">
-          <a href={"#" + job.url} className="hover:underline">
-            {job.title}
+          <a href={"#"} className="hover:underline">
+            {job.JobTitle}
           </a>
         </h2>
       </header>
-      <h3 className="text-lg mb-1">{job.company}</h3>
+      <h3 className="text-lg mb-1">{job.EmployerName}</h3>
       <h4 className="text-gray-600 mb-2 flex items-center">
         <img
           src="/location-sign-svgrepo-com.svg"
           alt="Location"
           className="w-4 h-4 inline-block mr-1"
         />
-        {job.location}
+        {job?.Location}
       </h4>
-      {job?.salary && (
+      {job?.Salary && (
         <p className="text-sm mb-1">
           <span className="font-light">Salary: </span>
-          {job.salary}
+          {job.Salary}
         </p>
       )}
-      {job?.deadline && (
+      {job?.Deadline && (
         <p className="text-sm mb-1">
           <span className="font-light">Deadline: </span>
-          {job.deadline}
+          {new Date(job.Deadline).toLocaleDateString()}
         </p>
       )}
-      {job?.experience && (
+      {job?.Experience && (
         <p className="text-sm mb-1">
           <span className="font-light">Experience: </span>
-          {job.experience}
+          {job.Experience}
         </p>
       )}
-      {job?.description && <p className="text-sm mt-2">{job.description}</p>}
+      {job?.JobDescription && <p className="text-sm mt-2">{job.JobDescription}</p>}
     </div>
     <footer className="px-4 pb-2 flex gap-2 items-center">
-      {job.featured && <div className="badge badge-primary">Featured</div>}
-      <div className="text-sm text-gray-600">{job.publishDate}</div>
+      {job.isFeatured && <div className="badge badge-primary">Featured</div>}
+      <div className="text-sm text-gray-600">{
+      // new Date(job.Published).toLocaleDateString()
+      format(new Date(job.Published), "MMMM dd, yyyy")
+      }</div>
     </footer>
   </article>
+);
+
+const SkeletonLoader = () => (
+  <div className="skeleton w-full h-48 mb-4"></div>
 );
 
 function JobList() {
@@ -83,11 +91,21 @@ function JobList() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-3xl">
-      {jobs.map((job, index) => (
-        <div key={job._id} className={`${index !== 0 ? "border-t-2" : ""}`}>
-          <JobCard job={job} />
-        </div>
-      ))}
+      {isLoading ? (
+        <>
+          <SkeletonLoader />
+          <SkeletonLoader />
+          <SkeletonLoader />
+        </>
+      ) : error ? (
+        <div className="alert alert-error">{error}</div>
+      ) : (
+        jobs.map((job, index) => (
+          <div key={job._id} className={`${index !== 0 ? "border-t-2" : ""}`}>
+            <JobCard job={job} />
+          </div>
+        ))
+      )}
 
       {/* Pagination */}
       <div className="flex justify-center mt-8">

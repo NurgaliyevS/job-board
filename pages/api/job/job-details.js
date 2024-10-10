@@ -25,7 +25,7 @@ export default async function handler(req, res) {
         const totalPages = Math.ceil(totalJobs / limitNumber);
 
         const jobs = await Job.find()
-          .sort({ dateModified: -1 })
+          .sort({ Published: -1 })
           .skip((pageNumber - 1) * limitNumber)
           .limit(limitNumber);
 
