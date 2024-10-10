@@ -6,10 +6,15 @@ import {
   locations,
 } from "../../components/jobDefault";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const JobConstructor = () => {
   const { data: session } = useSession();
   const [touchedFields, setTouchedFields] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
 
   const handleBlur = (e) => {
     const { name } = e.target;
@@ -60,14 +65,21 @@ const JobConstructor = () => {
         email: session?.user?.email,
       },
     };
-
+    setIsLoading(true);
     try {
       const response = await axios.post("/api/job/job-details", jobData);
       console.log("Job listing submitted successfully:", response.data);
       // Handle success (e.g., show success message, redirect)
+      if (response.status === 201) {
+        router.push("/post-job/submit")
+      } else {
+        toast.error("Error submitting job listing");
+      }
     } catch (error) {
       console.error("Error submitting job listing:", error);
       // Handle error (e.g., show error message)
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -140,10 +152,7 @@ const JobConstructor = () => {
               <label className="label">
                 <span className="label-text">Job Type</span>
               </label>
-              <select
-                name="jobType"
-                className="select select-bordered w-full"
-              >
+              <select name="jobType" className="select select-bordered w-full">
                 <option value="">Select job type</option>
                 {jobTypes.map((type, index) => (
                   <option key={index} value={type}>
@@ -289,7 +298,11 @@ const JobConstructor = () => {
             </div>
 
             <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={isLoading}
+              >
                 Submit Job Listing
               </button>
             </div>
