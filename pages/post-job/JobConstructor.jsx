@@ -71,6 +71,7 @@ const JobConstructor = () => {
       console.log("Job listing submitted successfully:", response.data);
       // Handle success (e.g., show success message, redirect)
       if (response.status === 201) {
+        toast.success("Job saved successfully");
         router.push("/post-job/submit")
       } else {
         toast.error("Error submitting job listing");
