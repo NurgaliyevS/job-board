@@ -1,3 +1,5 @@
+// pages/api/job.js
+
 import Job from "@/backend/job";
 import connectMongoDB from "@/backend/mongodb";
 import User from "@/backend/user";
@@ -13,6 +15,32 @@ export default async function handler(req, res) {
   }
 
   switch (method) {
+    case "GET":
+      try {
+        const { page = 1, limit = 20 } = req.query;
+        const pageNumber = parseInt(page);
+        const limitNumber = parseInt(limit);
+
+        const totalJobs = await Job.countDocuments();
+        const totalPages = Math.ceil(totalJobs / limitNumber);
+
+        const jobs = await Job.find()
+          .sort({ dateModified: -1 })
+          .skip((pageNumber - 1) * limitNumber)
+          .limit(limitNumber);
+
+        return res.status(200).json({
+          jobs,
+          currentPage: pageNumber,
+          totalPages,
+          totalJobs,
+        });
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+        res.status(500).json({ message: "Error fetching jobs" });
+      }
+      break;
+
     case "POST":
       try {
         console.log("req.body", req.body);
@@ -29,54 +57,6 @@ export default async function handler(req, res) {
       } catch (error) {
         console.error("Error creating job:", error);
         res.status(500).json({ message: "Error creating job" });
-      }
-      break;
-
-    case "GET":
-      try {
-        const { jobId, userId, id } = req.query;
-
-        if (id) {
-          const job = await Job.findById(id);
-          if (!job) {
-            return res.status(404).json({
-              message: "Job not found",
-            });
-          }
-          return res.status(200).json({
-            message: "Job found",
-            job,
-          });
-        }
-
-        if (jobId) {
-          const job = await Job.find({
-            jobId,
-          });
-          if (!job) {
-            return res.status(404).json({
-              message: "Job not found",
-            });
-          }
-          return res.status(200).json(job);
-        }
-
-        if (userId) {
-          const jobs = await Job.find({
-            userId,
-          }).sort({ dateModified: -1 });
-          return res.status(200).json(jobs);
-        }
-
-        if (Object.keys(req.query).length === 0) {
-          const jobs = await Job.find().sort({ dateModified: -1 });
-          return res.status(200).json(jobs);
-        }
-
-        return res.status(400).json({ message: "Invalid query" });
-      } catch (error) {
-        console.error("Error jobs:", error);
-        res.status(500).json({ message: "Error jobs" });
       }
       break;
 
@@ -118,6 +98,7 @@ export default async function handler(req, res) {
         res.status(500).json({ message: "Error deleting job" });
       }
       break;
+
     default:
       res.setHeader("Allow", ["GET", "POST", "PUT", "DELETE"]);
       res.status(405).end(`Method ${method} Not Allowed`);
