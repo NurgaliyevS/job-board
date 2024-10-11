@@ -30,7 +30,7 @@ const JobCard = ({ job }) => (
       {job?.Deadline && (
         <p className="text-sm mb-1">
           <span className="font-light">Deadline: </span>
-          {new Date(job.Deadline).toLocaleDateString()}
+          {format(new Date(job.Deadline), "MMMM dd, yyyy")}
         </p>
       )}
       {job?.Experience && (

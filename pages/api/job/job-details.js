@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        if (!req.query === false) {
+        if (!req.query?.page && !req.query?.limit) {
           const allJobs = await Job.find();
           return res.status(200).json(allJobs);
         } else {
@@ -28,7 +28,9 @@ export default async function handler(req, res) {
           const totalJobs = await Job.countDocuments();
           const totalPages = Math.ceil(totalJobs / limitNumber);
 
-          const jobs = await Job.find()
+          const jobs = await Job.find({
+            isVerified: true,
+          })
             .sort({ Published: -1 })
             .skip((pageNumber - 1) * limitNumber)
             .limit(limitNumber);
