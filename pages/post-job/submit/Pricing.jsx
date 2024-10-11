@@ -6,13 +6,17 @@ function Pricing(props) {
   const router = useRouter();
 
   const publishListing = () => {
-    toast.success("Listing published successfully");
-    router.push("/");
+    toast.success(
+      "You have successfully saved your job listing. Now we will review your job listing."
+    );
+    router.push("/post-job/submit/review");
   };
 
   const publishPremiumListing = () => {
-    toast.success("Premium listing published in progress");
-    router.push("/");
+    toast.success(
+      "You have successfully saved your job listing. Now we will review your job listing."
+    );
+    router.push("/post-job/submit/review?premium=true");
   };
 
   return (
@@ -49,20 +53,25 @@ function Pricing(props) {
             <div className="mt-2 mb-6">
               <h3 className="font-bold mb-6">IDEAL FOR</h3>
               <ul className="list-disc list-inside flex flex-col gap-6">
-                <li>
-                  <span className="font-semibold">Priority Hires</span>
+                <li className="min-h-20">
+                  <span className="font-semibold text-success">Priority Hires</span>
                   <br />
                   When it really matters, do what it takes to hire the best.
                 </li>
-                <li>
-                  <span className="font-semibold">Technical Jobs</span>
+                <li className="min-h-20">
+                  <span className="font-semibold text-success">Technical Jobs</span>
                   <br />
                   Reach more people with the background you need.
                 </li>
-                <li>
-                  <span className="font-semibold">Urgent Recruiting</span>
+                <li className="min-h-20">
+                  <span className="font-semibold text-success">Urgent Recruiting</span>
                   <br />
                   Get more applicants, right away.
+                </li>
+                <li className="min-h-20">
+                  <span className="font-semibold text-success">High-Volume Recruiting</span>
+                  <br />
+                  We will review your job posting in the next 7 days.
                 </li>
               </ul>
             </div>
@@ -103,23 +112,28 @@ function Pricing(props) {
             <div className="mt-2 mb-6">
               <h3 className="font-bold mb-6">IDEAL FOR</h3>
               <ul className="list-disc list-inside flex flex-col gap-6">
-                <li>
-                  <span className="font-semibold">Lower Priority Hires</span>
+                <li className="min-h-20">
+                  <span className="font-semibold text-success">Lower Priority Hires</span>
                   <br />
                   When it's less important.
                 </li>
-                <li>
-                  <span className="font-semibold">
+                <li className="min-h-20">
+                  <span className="font-semibold text-success">
                     Easier-To-Fill Positions
                   </span>
                   <br />
                   When getting great applicants is easy.
                 </li>
-                <li>
-                  <span className="font-semibold">'No-Budget' Recruiting</span>
+                <li className="min-h-20">
+                  <span className="font-semibold text-success">'No-Budget' Recruiting</span>
                   <br />
                   If you can only afford 'Free', our Basic Listings get you
                   applicants at no-cost.
+                </li>
+                <li className="min-h-20">
+                  <span className="font-semibold text-success">Low-Volume Recruiting</span>
+                  <br />
+                  We will review your job posting in the next 30 days.
                 </li>
               </ul>
             </div>
