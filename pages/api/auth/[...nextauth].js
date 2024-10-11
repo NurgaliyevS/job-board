@@ -19,6 +19,7 @@ export const authOptions = {
           image: profile.picture,
           createdAt: new Date(),
           variant_name: "free",
+          isAdmin: false,
         };
       },
     }),

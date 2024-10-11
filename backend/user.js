@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema(
     id_token: String,
     receipt_link: String,
     variant_id: String,
+    isAdmin: { type: Boolean, default: false },
     user_status: { type: String, default: 'inactive' },
     variant_name: { type: String, default: 'free' }, // Updated
     customer_portal_url: String,
