@@ -118,7 +118,7 @@ function JobList() {
       ) : error ? (
         <div className="alert alert-error">{error}</div>
       ) : (
-        jobs.map((job, index) => (
+        jobs?.map((job, index) => (
           <div key={job._id} className={`${index !== 0 ? "border-t-2" : ""}`}>
             <JobCard job={job} />
           </div>

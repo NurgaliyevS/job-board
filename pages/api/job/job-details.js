@@ -17,25 +17,29 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const { page = 1, limit = 20 } = req.query;
-        const pageNumber = parseInt(page);
-        const limitNumber = parseInt(limit);
+        if (!req.query === false) {
+          const allJobs = await Job.find();
+          return res.status(200).json(allJobs);
+        } else {
+          const { page = 1, limit = 20 } = req.query;
+          const pageNumber = parseInt(page);
+          const limitNumber = parseInt(limit);
 
-        const totalJobs = await Job.countDocuments();
-        const totalPages = Math.ceil(totalJobs / limitNumber);
+          const totalJobs = await Job.countDocuments();
+          const totalPages = Math.ceil(totalJobs / limitNumber);
 
-        // only fetch jobs that are verified
-        const jobs = await Job.find({ isVerified: true })
-          .sort({ Published: -1 })
-          .skip((pageNumber - 1) * limitNumber)
-          .limit(limitNumber);
+          const jobs = await Job.find()
+            .sort({ Published: -1 })
+            .skip((pageNumber - 1) * limitNumber)
+            .limit(limitNumber);
 
-        return res.status(200).json({
-          jobs,
-          currentPage: pageNumber,
-          totalPages,
-          totalJobs,
-        });
+          return res.status(200).json({
+            jobs,
+            currentPage: pageNumber,
+            totalPages,
+            totalJobs,
+          });
+        }
       } catch (error) {
         console.error("Error fetching jobs:", error);
         res.status(500).json({ message: "Error fetching jobs" });

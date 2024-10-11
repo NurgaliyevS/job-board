@@ -149,12 +149,12 @@ const JobConstructor = () => {
             <h2 className="text-xl font-semibold mt-8 mb-5">
               Job Listing Information
             </h2>
+            {/* add to form-control by default - Permanent */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Job Type</span>
               </label>
-              <select name="jobType" className="select select-bordered w-full">
-                <option value="">Select job type</option>
+              <select name="jobType" className="select select-bordered w-full" defaultValue={jobTypes[0]}>
                 {jobTypes.map((type, index) => (
                   <option key={index} value={type}>
                     {type}
