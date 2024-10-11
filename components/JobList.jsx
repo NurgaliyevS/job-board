@@ -39,7 +39,9 @@ const JobCard = ({ job }) => (
           {job.Experience}
         </p>
       )}
-      {job?.JobDescription && <p className="text-sm mt-2">{job.JobDescription}</p>}
+      {job?.JobDescription && (
+        <p className="text-sm mt-2">{job.JobDescription}</p>
+      )}
     </div>
     <footer className="px-4 pb-2 flex gap-2 items-center">
       {job.isFeatured && <div className="badge badge-primary">Featured</div>}
@@ -126,7 +128,7 @@ function JobList() {
       )}
 
       {/* Pagination */}
-      <div className="flex justify-center mt-8">
+      <div className="flex justify-center bg-white border-t-2 p-4 shadow-lg rounded-xl overflow-hidden">
         <div className="btn-group">
           <button
             className="btn btn-sm"
