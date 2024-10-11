@@ -20,6 +20,15 @@ export default async function handler(req, res) {
         if (!req.query?.page && !req.query?.limit) {
           const allJobs = await Job.find();
           return res.status(200).json(allJobs);
+        } else if (req.query?.id) {
+          const { id } = req.query;
+          const job = await Job.findById(id);
+          if (!job) {
+            return res.status(404).json({
+              message: "Job not found",
+            });
+          }
+          return res.status(200).json(job);
         } else {
           const { page = 1, limit = 20 } = req.query;
           const pageNumber = parseInt(page);
