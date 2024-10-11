@@ -4,6 +4,7 @@ import { customConfig } from "@/project.custom.config";
 import { Nunito_Sans } from "next/font/google";
 import Head from "next/head";
 import Pricing from "./Pricing";
+import withAuth from "@/components/withAuth";
 
 const nunitoSans = Nunito_Sans({
   subsets: ["latin"],
@@ -32,4 +33,4 @@ function SubmitJob(props) {
   );
 }
 
-export default SubmitJob;
+export default withAuth(SubmitJob);
