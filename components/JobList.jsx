@@ -10,7 +10,7 @@ function JobList() {
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selectedJob, setSelectedJob] = useState(null);
+  const [selectedJobId, setSelectedJobId] = useState(null);
 
   useEffect(() => {
     fetchJobs(currentPage);
@@ -34,17 +34,14 @@ function JobList() {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
+    setSelectedJobId(null); // Reset selected job when changing pages
   };
 
-  const handleJobSelect = async (jobId) => {
-    try {
-      const response = await axios.get(`/api/job/job-details?id=${jobId}`);
-      setSelectedJob(response?.data?.[0]);
-    } catch (error) {
-      console.error("Error fetching job details:", error);
-      setError("Failed to fetch job details. Please try again later.");
-    }
+  const handleJobSelect = (jobId) => {
+    setSelectedJobId(jobId);
   };
+
+  const selectedJob = jobs.find(job => job._id === selectedJobId);
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
@@ -61,7 +58,7 @@ function JobList() {
           ) : (
             jobs?.map((job) => (
               <div key={job._id} className="mb-4 cursor-pointer" onClick={() => handleJobSelect(job._id)}>
-                <JobCard job={job} isSelected={selectedJob?._id === job._id} />
+                <JobCard job={job} isSelected={selectedJobId === job._id} />
               </div>
             ))
           )}
@@ -100,7 +97,7 @@ function JobList() {
 
         {selectedJob && (
           <div className="w-3/5 pl-4">
-            <JobDetailView job={selectedJob} onClose={() => setSelectedJob(null)} />
+            <JobDetailView job={selectedJob} onClose={() => setSelectedJobId(null)} />
           </div>
         )}
       </div>
