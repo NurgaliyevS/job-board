@@ -8,7 +8,7 @@ const JobCard = ({ job, isSelected }) => (
   >
     <div className="p-4">
       <header className="mb-2">
-        <h2 className="text-xl font-bold">{job.JobTitle}</h2>
+        <h2 className="text-xl font-bold hover:underline">{job.JobTitle}</h2>
       </header>
       <h3 className="text-lg mb-1">{job.EmployerName}</h3>
       <h4 className="text-gray-600 mb-2 flex items-center">
@@ -18,7 +18,7 @@ const JobCard = ({ job, isSelected }) => (
           className="w-4 h-4 inline-block mr-1"
         />
         <span className="text-success">
-          {job?.City ? ", " : ""} {job?.Location}
+          {job?.City ? `${job.City}, ` : ""} {job?.Location}
         </span>
       </h4>
       {job?.Salary && (

@@ -107,7 +107,9 @@ const Confirm = () => {
               {job.EmployerName}
               <br />
               <p className="text-success">{job?.Location}</p>
-              {job.isVerified && <p className="text-blue-500">Verified</p>}
+              <p className="text-blue-500">
+                {job?.isVerified ? "Verified" : "Not Verified"}
+              </p>
             </div>
             <div className="collapse-content bg-base-100">
               <p className="border-t-2 p-2"></p>
