@@ -125,7 +125,7 @@ export default function Main() {
   };
 
   return (
-    <section className="container max-w-3xl mx-auto flex flex-col px-4 sm:px-8 p-2 lg:p-6 my-2">
+    <section className="container max-w-6xl mx-auto flex flex-col px-4 sm:px-8 p-2 lg:p-6 my-2">
       <div className="flex flex-col gap-6 sm:gap-10 lg:gap-12 mb-6 sm:mb-10">
         <h1 className="font-extrabold text-3xl sm:text-4xl tracking-tight md:-mb-4">
           Discover The Latest Environmental Jobs

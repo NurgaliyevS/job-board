@@ -1,14 +1,14 @@
 import { format } from "date-fns";
 
-const JobCard = ({ job }) => (
-  <article className="bg-white shadow-lg rounded-xl overflow-hidden">
+const JobCard = ({ job, isSelected }) => (
+  <article
+    className={`bg-white shadow-lg rounded-xl overflow-hidden ${
+      isSelected ? "ring-2 ring-blue-500" : ""
+    }`}
+  >
     <div className="p-4">
       <header className="mb-2">
-        <h2 className="text-xl font-bold">
-          <a href={"#"} className="hover:underline">
-            {job.JobTitle}
-          </a>
-        </h2>
+        <h2 className="text-xl font-bold">{job.JobTitle}</h2>
       </header>
       <h3 className="text-lg mb-1">{job.EmployerName}</h3>
       <h4 className="text-gray-600 mb-2 flex items-center">
@@ -17,7 +17,9 @@ const JobCard = ({ job }) => (
           alt="Location"
           className="w-4 h-4 inline-block mr-1"
         />
-        {job?.Location}
+        <span className="text-success">
+          {job?.City ? ", " : ""} {job?.Location}
+        </span>
       </h4>
       {job?.Salary && (
         <p className="text-sm mb-1">
@@ -30,15 +32,6 @@ const JobCard = ({ job }) => (
           <span className="font-light">Deadline: </span>
           {format(new Date(job.Deadline), "MMMM dd, yyyy")}
         </p>
-      )}
-      {job?.Experience && (
-        <p className="text-sm mb-1">
-          <span className="font-light">Experience: </span>
-          {job.Experience}
-        </p>
-      )}
-      {job?.JobDescription && (
-        <p className="text-sm mt-2">{job.JobDescription}</p>
       )}
     </div>
     <footer className="px-4 pb-2 flex gap-2 items-center">

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import SkeletonLoader from "./Job/SkeletonLoader";
 import JobCard from "./Job/JobCard";
+import JobDetailView from "./Job/JobDetailView";
 
 function JobList() {
   const [jobs, setJobs] = useState([]);
@@ -8,6 +10,7 @@ function JobList() {
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [selectedJob, setSelectedJob] = useState(null);
 
   useEffect(() => {
     fetchJobs(currentPage);
@@ -17,11 +20,8 @@ function JobList() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        `/api/job/job-details?page=${page}&limit=20`
-      );
-      const data = await response.json();
-      const { jobs, totalPages } = data;
+      const response = await axios.get(`/api/job/job-details?page=${page}&limit=20`);
+      const { jobs, totalPages } = response?.data;
       setJobs(jobs);
       setTotalPages(totalPages);
     } catch (error) {
@@ -36,53 +36,73 @@ function JobList() {
     setCurrentPage(newPage);
   };
 
-  return (
-    <div className="container mx-auto px-4 py-8 max-w-3xl">
-      {isLoading ? (
-        <>
-          <SkeletonLoader />
-          <SkeletonLoader />
-          <SkeletonLoader />
-        </>
-      ) : error ? (
-        <div className="alert alert-error">{error}</div>
-      ) : (
-        jobs?.map((job, index) => (
-          <div key={job._id} className={`${index !== 0 ? "border-t-2" : ""}`}>
-            <JobCard job={job} />
-          </div>
-        ))
-      )}
+  const handleJobSelect = async (jobId) => {
+    try {
+      const response = await axios.get(`/api/job/job-details?id=${jobId}`);
+      setSelectedJob(response?.data?.[0]);
+    } catch (error) {
+      console.error("Error fetching job details:", error);
+      setError("Failed to fetch job details. Please try again later.");
+    }
+  };
 
-      {/* Pagination */}
-      <div className="flex justify-center bg-white border-t-2 p-4 shadow-lg rounded-xl overflow-hidden">
-        <div className="btn-group">
-          <button
-            className="btn btn-sm"
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            «
-          </button>
-          {[...Array(totalPages).keys()].map((page) => (
-            <button
-              key={page + 1}
-              className={`btn btn-sm ${
-                currentPage === page + 1 ? "btn-active" : ""
-              }`}
-              onClick={() => handlePageChange(page + 1)}
-            >
-              {page + 1}
-            </button>
-          ))}
-          <button
-            className="btn btn-sm"
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            »
-          </button>
+  return (
+    <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <div className="flex">
+        <div className={`w-2/5 pr-4 ${selectedJob ? 'border-r' : ''}`}>
+          {isLoading ? (
+            <>
+              <SkeletonLoader />
+              <SkeletonLoader />
+              <SkeletonLoader />
+            </>
+          ) : error ? (
+            <div className="alert alert-error">{error}</div>
+          ) : (
+            jobs?.map((job) => (
+              <div key={job._id} className="mb-4 cursor-pointer" onClick={() => handleJobSelect(job._id)}>
+                <JobCard job={job} isSelected={selectedJob?._id === job._id} />
+              </div>
+            ))
+          )}
+
+          {/* Pagination */}
+          <div className="flex justify-center bg-white border-t-2 p-4 shadow-lg rounded-xl overflow-hidden mt-4">
+            <div className="btn-group">
+              <button
+                className="btn btn-sm"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                «
+              </button>
+              {[...Array(totalPages).keys()].map((page) => (
+                <button
+                  key={page + 1}
+                  className={`btn btn-sm ${
+                    currentPage === page + 1 ? "btn-active" : ""
+                  }`}
+                  onClick={() => handlePageChange(page + 1)}
+                >
+                  {page + 1}
+                </button>
+              ))}
+              <button
+                className="btn btn-sm"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                »
+              </button>
+            </div>
+          </div>
         </div>
+
+        {selectedJob && (
+          <div className="w-3/5 pl-4">
+            <JobDetailView job={selectedJob} onClose={() => setSelectedJob(null)} />
+          </div>
+        )}
       </div>
     </div>
   );
