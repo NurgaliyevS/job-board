@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { format } from "date-fns";
+import { toast } from "react-toastify";
 
 const Confirm = () => {
   const [jobs, setJobs] = useState([]);
@@ -41,9 +42,41 @@ const Confirm = () => {
   const handleDelete = async (jobId) => {
     try {
       await axios.delete(`/api/job/job-details?id=${jobId}`);
+      toast.error("Job deleted successfully");
       setJobs(jobs.filter((job) => job._id !== jobId));
     } catch (err) {
       setError("Failed to delete job");
+    }
+  };
+
+  const handleVerifyAll = async () => {
+    try {
+      const updatedJobs = await Promise.all(
+        jobs.map(async (job) => {
+          if (!job.isVerified) {
+            await axios.put(`/api/job/job-details?id=${job._id}`, {
+              isVerified: true,
+            });
+            toast.success("Job verified successfully");
+            return { ...job, isVerified: true };
+          }
+          return job;
+        })
+      );
+      setJobs(updatedJobs);
+    } catch (err) {
+      setError("Failed to verify all jobs");
+    }
+  };
+
+  const handleDeleteAll = async () => {
+    try {
+      await Promise.all(
+        jobs.map((job) => axios.delete(`/api/job/job-details?id=${job._id}`))
+      );
+      setJobs([]);
+    } catch (err) {
+      setError("Failed to delete all jobs");
     }
   };
 
@@ -53,6 +86,14 @@ const Confirm = () => {
   return (
     <div className="container mx-auto p-4 max-w-5xl">
       <h1 className="text-3xl font-bold text-center my-8">Admin Panel</h1>
+      <div className="flex justify-between mb-4">
+        <button className="btn btn-success" onClick={handleVerifyAll}>
+          Verify All
+        </button>
+        <button className="btn btn-error" onClick={handleDeleteAll}>
+          Delete All
+        </button>
+      </div>
       <div className="space-y-8">
         {jobs?.map((job) => (
           <div
