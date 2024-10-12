@@ -72,7 +72,7 @@ const JobConstructor = () => {
       // Handle success (e.g., show success message, redirect)
       if (response.status === 201) {
         toast.success("Job saved successfully");
-        router.push("/post-job/submit")
+        router.push("/post-job/submit");
       } else {
         toast.error("Error submitting job listing");
       }
@@ -103,7 +103,10 @@ const JobConstructor = () => {
       <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
           <form onSubmit={handleSubmit} noValidate>
-            <h2 className="text-xl font-semibold mb-5">Your Information</h2>
+            <h2 className="text-xl font-semibold mb-5">
+              Your Information
+              <span className="text-base opacity-70"> (don't worry, we won't share this)</span>
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="form-control">
                 <RequiredLabel>Your Full Name</RequiredLabel>
@@ -154,7 +157,11 @@ const JobConstructor = () => {
               <label className="label">
                 <span className="label-text">Job Type</span>
               </label>
-              <select name="jobType" className="select select-bordered w-full" defaultValue={jobTypes[0]}>
+              <select
+                name="jobType"
+                className="select select-bordered w-full"
+                defaultValue={jobTypes[0]}
+              >
                 {jobTypes.map((type, index) => (
                   <option key={index} value={type}>
                     {type}
