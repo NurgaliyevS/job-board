@@ -107,33 +107,49 @@ const Confirm = () => {
               {job.EmployerName}
               <br />
               <p className="text-success">{job?.Location}</p>
+              {job.isVerified && <p className="text-blue-500">Verified</p>}
             </div>
             <div className="collapse-content bg-base-100">
               <p className="border-t-2 p-2"></p>
               <p>
-                <strong className="font-extrabold opacity-60">Salary:</strong> {job?.Salary}
+                <strong className="font-extrabold opacity-60">Salary:</strong>{" "}
+                {job?.Salary}
               </p>
               <p>
-                <strong className="font-extrabold opacity-60">Job Description:</strong> {job?.JobDescription}
+                <strong className="font-extrabold opacity-60">
+                  Job Description:
+                </strong>{" "}
+                {job?.JobDescription}
               </p>
               <p>
-                <strong className="font-extrabold opacity-60">Published:</strong>{" "}
+                <strong className="font-extrabold opacity-60">
+                  Published:
+                </strong>{" "}
                 {format(new Date(job.Published), "MMMM dd, yyyy")}
               </p>
               <p>
-                <strong className="font-extrabold opacity-60">Skills:</strong> {job?.Skills}
+                <strong className="font-extrabold opacity-60">Skills:</strong>{" "}
+                {job?.Skills}
               </p>
               <p>
-                <strong className="font-extrabold opacity-60">Required Experience:</strong> {job?.Experience}
+                <strong className="font-extrabold opacity-60">
+                  Required Experience:
+                </strong>{" "}
+                {job?.Experience}
               </p>
               <p>
-                <strong className="font-extrabold opacity-60">Job Type:</strong> {job.JobType}
+                <strong className="font-extrabold opacity-60">Job Type:</strong>{" "}
+                {job.JobType}
               </p>
               <p>
-                <strong className="font-extrabold opacity-60">City:</strong> {job.City}
+                <strong className="font-extrabold opacity-60">City:</strong>{" "}
+                {job.City}
               </p>
               <p>
-                <strong className="font-extrabold opacity-60">Application Instructions:</strong> {job?.HowToApply}
+                <strong className="font-extrabold opacity-60">
+                  Application Instructions:
+                </strong>{" "}
+                {job?.HowToApply}
               </p>
               <div className="mt-4 flex gap-4">
                 <button
