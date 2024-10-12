@@ -3,6 +3,7 @@ import axios from "axios";
 import SkeletonLoader from "./Job/SkeletonLoader";
 import JobCard from "./Job/JobCard";
 import JobDetailView from "./Job/JobDetailView";
+import GetNewJobsByEmail from "./Job/GetNewJobsByEmail";
 
 function JobList() {
   const [jobs, setJobs] = useState([]);
@@ -20,7 +21,9 @@ function JobList() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`/api/job/job-details?page=${page}&limit=20`);
+      const response = await axios.get(
+        `/api/job/job-details?page=${page}&limit=20`
+      );
       const { jobs, totalPages } = response?.data;
       setJobs(jobs);
       setTotalPages(totalPages);
@@ -41,12 +44,12 @@ function JobList() {
     setSelectedJobId(jobId);
   };
 
-  const selectedJob = jobs.find(job => job._id === selectedJobId);
+  const selectedJob = jobs.find((job) => job._id === selectedJobId);
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
       <div className="flex">
-        <div className={`w-2/5 pr-4 ${selectedJob ? 'border-r' : ''}`}>
+        <div className={`w-2/5 pr-4 ${selectedJob ? "border-r" : ""}`}>
           {isLoading ? (
             <>
               <SkeletonLoader />
@@ -56,15 +59,20 @@ function JobList() {
           ) : error ? (
             <div className="alert alert-error">{error}</div>
           ) : (
-            jobs?.map((job) => (
-              <div key={job._id} className="mb-4 cursor-pointer" onClick={() => handleJobSelect(job._id)}>
+            jobs?.map((job, index) => (
+              <div
+                key={job._id}
+                // className="mb-4 cursor-pointer"
+                className={`${index !== 0 ? "border-t-2" : ""}`}
+                onClick={() => handleJobSelect(job._id)}
+              >
                 <JobCard job={job} isSelected={selectedJobId === job._id} />
               </div>
             ))
           )}
 
           {/* Pagination */}
-          <div className="flex justify-center bg-white border-t-2 p-4 shadow-lg rounded-xl overflow-hidden mt-4">
+          <div className="flex justify-center bg-white border-t-2 p-4 shadow-lg rounded-xl overflow-hidden">
             <div className="btn-group">
               <button
                 className="btn btn-sm"
@@ -95,9 +103,17 @@ function JobList() {
           </div>
         </div>
 
+        {!selectedJob && (
+          <div className="w-72 pl-4">
+            <GetNewJobsByEmail />
+          </div>
+        )}
         {selectedJob && (
           <div className="w-3/5 pl-4">
-            <JobDetailView job={selectedJob} onClose={() => setSelectedJobId(null)} />
+            <JobDetailView
+              job={selectedJob}
+              onClose={() => setSelectedJobId(null)}
+            />
           </div>
         )}
       </div>
