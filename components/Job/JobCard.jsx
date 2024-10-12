@@ -3,7 +3,7 @@ import { format } from "date-fns";
 const JobCard = ({ job, isSelected }) => (
   <article
     className={`bg-white shadow-lg rounded-xl overflow-hidden ${
-      isSelected ? "ring-2 ring-blue-500" : ""
+      isSelected ? "ring-1 ring-blue-500" : ""
     }`}
   >
     <div className="p-4">
