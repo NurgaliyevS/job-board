@@ -4,44 +4,37 @@ export default function FilterSection({
   filterRef,
   setShowFilters,
   selectedCategories,
-  setSelectedCategories,
   selectedJobTypes,
-  setSelectedJobTypes,
+  handleFilterChange,
 }) {
   const handleCategoryToggle = (category) => {
-    setSelectedCategories((prev) => {
-      if (prev.includes(category)) {
-        return prev.filter((item) => item !== category);
-      } else {
-        return [...prev, category];
-      }
-    });
+    const newCategories = selectedCategories.includes(category)
+      ? selectedCategories.filter((item) => item !== category)
+      : [...selectedCategories, category];
+    handleFilterChange("categories", newCategories);
   };
 
   const handleJobTypeToggle = (jobType) => {
-    setSelectedJobTypes((prev) => {
-      if (prev.includes(jobType)) {
-        return prev.filter((item) => item !== jobType);
-      } else {
-        return [...prev, jobType];
-      }
-    });
+    const newJobTypes = selectedJobTypes.includes(jobType)
+      ? selectedJobTypes.filter((item) => item !== jobType)
+      : [...selectedJobTypes, jobType];
+    handleFilterChange("jobTypes", newJobTypes);
   };
 
   const handleAllCategories = () => {
-    setSelectedCategories([...CATEGORIES]);
+    handleFilterChange("categories", [...CATEGORIES]);
   };
 
   const handleClearCategories = () => {
-    setSelectedCategories([]);
+    handleFilterChange("categories", []);
   };
 
   const handleAllJobTypes = () => {
-    setSelectedJobTypes([...JOB_TYPES]);
+    handleFilterChange("jobTypes", [...JOB_TYPES]);
   };
 
   const handleClearJobTypes = () => {
-    setSelectedJobTypes([]);
+    handleFilterChange("jobTypes", []);
   };
 
   return (

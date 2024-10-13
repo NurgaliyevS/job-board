@@ -1,5 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
-import axios from 'axios';
+import React, { createContext, useState, useContext, useEffect } from "react";
+import axios from "axios";
 
 const JobContext = createContext();
 
@@ -14,16 +14,43 @@ export function JobProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedJobId, setSelectedJobId] = useState(null);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedJobTypes, setSelectedJobTypes] = useState([]);
+  const [selectedLocations, setSelectedLocations] = useState([]);
+  const [selectedRegions, setSelectedRegions] = useState([]);
 
   useEffect(() => {
     fetchJobs(currentPage);
-  }, [currentPage]);
+  }, [
+    currentPage,
+    selectedCategories,
+    selectedJobTypes,
+    selectedLocations,
+    selectedRegions,
+  ]);
 
   const fetchJobs = async (page) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`/api/job/job-details?page=${page}&limit=20`);
+      const params = {
+        page,
+        limit: 20,
+      };
+      if (selectedCategories.length) {
+        params.categories = selectedCategories.join(",");
+      }
+      if (selectedJobTypes.length) {
+        params.jobTypes = selectedJobTypes.join(",");
+      }
+      if (selectedLocations.length) {
+        params.locations = selectedLocations.join(",");
+      }
+      if (selectedRegions.length) {
+        params.regions = selectedRegions.join(",");
+      }
+
+      const response = await axios.get("/api/job/job-details", { params });
       const { jobs, totalPages } = response?.data;
       setJobs(jobs);
       setTotalPages(totalPages);
@@ -44,6 +71,26 @@ export function JobProvider({ children }) {
     setSelectedJobId(jobId);
   };
 
+  const handleFilterChange = (filterType, values) => {
+    switch (filterType) {
+      case "categories":
+        setSelectedCategories(values);
+        break;
+      case "jobTypes":
+        setSelectedJobTypes(values);
+        break;
+      case "locations":
+        setSelectedLocations(values);
+        break;
+      case "regions":
+        setSelectedRegions(values);
+        break;
+      default:
+        break;
+    }
+    setCurrentPage(1);
+  };
+
   const value = {
     jobs,
     currentPage,
@@ -51,8 +98,13 @@ export function JobProvider({ children }) {
     isLoading,
     error,
     selectedJobId,
+    selectedCategories,
+    selectedJobTypes,
+    selectedLocations,
+    selectedRegions,
     handlePageChange,
     handleJobSelect,
+    handleFilterChange,
   };
 
   return <JobContext.Provider value={value}>{children}</JobContext.Provider>;

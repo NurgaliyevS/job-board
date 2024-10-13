@@ -4,6 +4,7 @@ import {
   experienceLevels,
   jobTypes,
   locations,
+  categories,
 } from "../../components/jobDefault";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -59,6 +60,7 @@ const JobConstructor = () => {
       JobType: formObject.jobType,
       City: formObject.city,
       HowToApply: formObject.applicationInstructions,
+      Category: formObject.category,
       Creator: {
         FullName: formObject.fullName,
         phoneNumber: formObject.phoneNumber,
@@ -105,7 +107,10 @@ const JobConstructor = () => {
           <form onSubmit={handleSubmit} noValidate>
             <h2 className="text-xl font-semibold mb-5">
               Your Information
-              <span className="text-base opacity-70"> (don't worry, we won't share this)</span>
+              <span className="text-base opacity-70">
+                {" "}
+                (don't worry, we won't share this)
+              </span>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="form-control">
@@ -165,6 +170,23 @@ const JobConstructor = () => {
                 {jobTypes.map((type, index) => (
                   <option key={index} value={type}>
                     {type}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Job Category</span>
+              </label>
+              <select
+                name="category"
+                className="select select-bordered"
+                defaultValue={categories[0].value}
+              >
+                {categories.map((element) => (
+                  <option key={element.value} value={element.value}>
+                    {element.label}
                   </option>
                 ))}
               </select>
@@ -256,8 +278,8 @@ const JobConstructor = () => {
               <select
                 name="requiredExperience"
                 className="select select-bordered"
+                defaultValue={experienceLevels[0].value}
               >
-                <option value="">Select experience level</option>
                 {experienceLevels.map((level) => (
                   <option key={level.value} value={level.value}>
                     {level.label}

@@ -14,6 +14,7 @@ export const CATEGORIES = [
   "Restoration",
   "Sustainability",
   "Wildlife",
+  "Other",
 ];
 
 export const LOCATIONS = [

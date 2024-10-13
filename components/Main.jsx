@@ -4,21 +4,25 @@ import { usePlausible } from "next-plausible";
 import Icon from "./Filters/Filters";
 import FilterSection from "./Filters/FilterSection";
 import LocationSection from "./Filters/LocationSection";
+import { useJobContext } from "./Filters/JobContext";
 
 export default function Main() {
   const [showFilters, setShowFilters] = useState(false);
   const [showLocations, setShowLocations] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [selectedJobTypes, setSelectedJobTypes] = useState([]);
-  const [selectedLocations, setSelectedLocations] = useState([]);
-  const [selectedRegions, setSelectedRegions] = useState([]);
-
   const filterRef = useRef(null);
   const locationRef = useRef(null);
   const filterBtnRef = useRef(null);
   const locationBtnRef = useRef(null);
   const plausible = usePlausible();
   const { data: session } = useSession();
+
+  const {
+    selectedCategories,
+    selectedJobTypes,
+    selectedLocations,
+    selectedRegions,
+    handleFilterChange,
+  } = useJobContext();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -88,9 +92,8 @@ export default function Main() {
             filterRef={filterRef}
             setShowFilters={setShowFilters}
             selectedCategories={selectedCategories}
-            setSelectedCategories={setSelectedCategories}
             selectedJobTypes={selectedJobTypes}
-            setSelectedJobTypes={setSelectedJobTypes}
+            handleFilterChange={handleFilterChange}
           />
         )}
 
@@ -99,9 +102,8 @@ export default function Main() {
             locationRef={locationRef}
             setShowLocations={setShowLocations}
             selectedLocations={selectedLocations}
-            setSelectedLocations={setSelectedLocations}
             selectedRegions={selectedRegions}
-            setSelectedRegions={setSelectedRegions}
+            handleFilterChange={handleFilterChange}
           />
         )}
       </div>

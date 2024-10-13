@@ -4,44 +4,37 @@ export default function LocationSection({
   locationRef,
   setShowLocations,
   selectedLocations,
-  setSelectedLocations,
   selectedRegions,
-  setSelectedRegions,
+  handleFilterChange,
 }) {
   const handleLocationToggle = (location) => {
-    setSelectedLocations((prev) => {
-      if (prev.includes(location)) {
-        return prev.filter((item) => item !== location);
-      } else {
-        return [...prev, location];
-      }
-    });
+    const newLocations = selectedLocations.includes(location)
+      ? selectedLocations.filter((item) => item !== location)
+      : [...selectedLocations, location];
+    handleFilterChange("locations", newLocations);
   };
 
   const handleRegionToggle = (region) => {
-    setSelectedRegions((prev) => {
-      if (prev.includes(region)) {
-        return prev.filter((item) => item !== region);
-      } else {
-        return [...prev, region];
-      }
-    });
+    const newRegions = selectedRegions.includes(region)
+      ? selectedRegions.filter((item) => item !== region)
+      : [...selectedRegions, region];
+    handleFilterChange("regions", newRegions);
   };
 
   const handleAllLocations = () => {
-    setSelectedLocations([...LOCATIONS]);
+    handleFilterChange("locations", [...LOCATIONS]);
   };
 
   const handleClearLocations = () => {
-    setSelectedLocations([]);
+    handleFilterChange("locations", []);
   };
 
   const handleAllRegions = () => {
-    setSelectedRegions([...REGIONS]);
+    handleFilterChange("regions", [...REGIONS]);
   };
 
   const handleClearRegions = () => {
-    setSelectedRegions([]);
+    handleFilterChange("regions", []);
   };
 
   return (

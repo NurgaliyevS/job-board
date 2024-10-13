@@ -12,6 +12,7 @@ const JobSchema = new mongoose.Schema({
   JobTitle: String,
   EmployerName: String,
   Location: String,
+  Category: String,
   Salary: String,
   JobDescription: String,
   Deadline: Date,

@@ -79,3 +79,22 @@ export const experienceLevels = [
   { value: "Mid Level", label: "Mid Level (2 - 6 years)" },
   { value: "High Level", label: "High Level (7+ years)" },
 ];
+
+export const categories = [
+  { value: "Admin & Leadership", label: "Admin & Leadership" },
+  { value: "Botany", label: "Botany" },
+  { value: "Ecology", label: "Ecology" },
+  { value: "Environmental Education", label: "Environmental Education" },
+  { value: "Fisheries", label: "Fisheries" },
+  { value: "Forestry", label: "Forestry" },
+  { value: "Hydrology", label: "Hydrology" },
+  { value: "Land Trust", label: "Land Trust" },
+  { value: "Marine Biology", label: "Marine Biology" },
+  { value: "General / Stewardship", label: "General / Stewardship" },
+  { value: "Policy And Law", label: "Policy And Law" },
+  { value: "Outdoor Recreation", label: "Outdoor Recreation" },
+  { value: "Restoration", label: "Restoration" },
+  { value: "Sustainability", label: "Sustainability" },
+  { value: "Wildlife", label: "Wildlife" },
+  { value: "Other", label: "Other" },
+];

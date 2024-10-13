@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     case "GET":
       try {
         if (!req.query?.page && !req.query?.limit) {
-          const allJobs = await Job.find();
+          const allJobs = await Job.find().sort({ Published: -1 });
           return res.status(200).json(allJobs);
         } else if (req.query?.id) {
           const { id } = req.query;
@@ -30,16 +30,27 @@ export default async function handler(req, res) {
           }
           return res.status(200).json(job);
         } else {
-          const { page = 1, limit = 20 } = req.query;
+          const {
+            page = 1,
+            limit = 20,
+            categories,
+            jobTypes,
+            locations,
+            regions,
+          } = req.query;
           const pageNumber = parseInt(page);
           const limitNumber = parseInt(limit);
 
-          const totalJobs = await Job.countDocuments();
+          const filter = { isVerified: true };
+          if (categories) filter.Category = { $in: categories.split(",") };
+          if (jobTypes) filter.JobType = { $in: jobTypes.split(",") };
+          if (locations) filter.Location = { $in: locations.split(",") };
+          if (regions) filter.Location = { $in: regions.split(",") };
+
+          const totalJobs = await Job.countDocuments(filter);
           const totalPages = Math.ceil(totalJobs / limitNumber);
 
-          const jobs = await Job.find({
-            isVerified: true,
-          })
+          const jobs = await Job.find(filter)
             .sort({ Published: -1 })
             .skip((pageNumber - 1) * limitNumber)
             .limit(limitNumber);
