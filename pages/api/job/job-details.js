@@ -1,4 +1,4 @@
-// pages/api/job.js
+// pages/api/job/job-details.js
 
 import Job from "@/backend/job";
 import connectMongoDB from "@/backend/mongodb";
