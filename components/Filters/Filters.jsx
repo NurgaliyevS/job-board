@@ -78,19 +78,17 @@ export const REGIONS = [
   "Canada",
   "Europe",
   "Latin America",
-  "Middle East",
   "Other",
-  "Remote / Flexible",
+  "Remote / Flexible"
 ];
 
-
 export const JOB_TYPES = [
-  "AmeriCorps",
-  "Paid Internship",
   "Permanent",
-  "Student / postdoc",
   "Temporary",
-  "Unpaid",
+  "Paid Internship",
+  "Student / postdoc",
+  "AmeriCorps",
+  "Unpaid"
 ];
 
 export default function Icon() {
