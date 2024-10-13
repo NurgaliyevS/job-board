@@ -1,3 +1,4 @@
+import { JobProvider } from "@/components/Filters/JobContext";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import JobList from "@/components/JobList";
@@ -21,9 +22,13 @@ export default function Home() {
       <header className={nunitoSans.className}>
         <Header />
       </header>
-      <main className={`flex flex-col min-h-screen mx-auto ${nunitoSans.className} bg-neutral-100`}>
-        <Main />
-        <JobList />
+      <main
+        className={`flex flex-col min-h-screen mx-auto ${nunitoSans.className} bg-neutral-100`}
+      >
+        <JobProvider>
+          <Main />
+          <JobList />
+        </JobProvider>
       </main>
       <footer className={nunitoSans.className}>
         <Footer />

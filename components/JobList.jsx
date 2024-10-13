@@ -4,45 +4,19 @@ import SkeletonLoader from "./Job/SkeletonLoader";
 import JobCard from "./Job/JobCard";
 import JobDetailView from "./Job/JobDetailView";
 import GetNewJobsByEmail from "./Job/GetNewJobsByEmail";
+import { useJobContext } from "./Filters/JobContext";
 
 function JobList() {
-  const [jobs, setJobs] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [selectedJobId, setSelectedJobId] = useState(null);
-
-  useEffect(() => {
-    fetchJobs(currentPage);
-  }, [currentPage]);
-
-  const fetchJobs = async (page) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await axios.get(
-        `/api/job/job-details?page=${page}&limit=20`
-      );
-      const { jobs, totalPages } = response?.data;
-      setJobs(jobs);
-      setTotalPages(totalPages);
-    } catch (error) {
-      console.error("Error fetching jobs:", error);
-      setError("Failed to fetch jobs. Please try again later.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-    setSelectedJobId(null); // Reset selected job when changing pages
-  };
-
-  const handleJobSelect = (jobId) => {
-    setSelectedJobId(jobId);
-  };
+  const {
+    jobs,
+    currentPage,
+    totalPages,
+    isLoading,
+    error,
+    selectedJobId,
+    handlePageChange,
+    handleJobSelect,
+  } = useJobContext();
 
   const selectedJob = jobs.find((job) => job._id === selectedJobId);
 
