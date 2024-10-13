@@ -26,9 +26,13 @@ const Confirm = () => {
 
   const handleVerify = async (jobId, isVerified) => {
     try {
-      await axios.put(`/api/job/job-details?id=${jobId}`, {
+      const response = await axios.put(`/api/job/job-details?id=${jobId}`, {
         isVerified: !isVerified,
       });
+      // status 200
+      if (response.status === 200 && response.data.isVerified) {
+        await sendVerificationEmail(response.data);
+      }
       setJobs(
         jobs.map((job) =>
           job._id === jobId ? { ...job, isVerified: !isVerified } : job
@@ -77,6 +81,19 @@ const Confirm = () => {
       setJobs([]);
     } catch (err) {
       setError("Failed to delete all jobs");
+    }
+  };
+
+  const sendVerificationEmail = async (job) => {
+    try {
+      await axios.post("/api/send-email", {
+        to: job.Creator.email,
+        subject: "Your Job Posting Has Been Verified",
+        jobDetails: job
+      });
+    } catch (err) {
+      console.error("Failed to send verification email", err);
+      toast.error("Failed to send verification email");
     }
   };
 
