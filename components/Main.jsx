@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { usePlausible } from "next-plausible";
-import Icon, { CATEGORIES, JOB_TYPES, LOCATIONS, REGIONS } from "./Filters";
+import Icon from "./Filters/Filters";
+import FilterSection from "./Filters/FilterSection";
+import LocationSection from "./Filters/LocationSection";
 
 export default function Main() {
   const [showFilters, setShowFilters] = useState(false);
@@ -52,78 +54,6 @@ export default function Main() {
     }
   };
 
-  const handleCategoryToggle = (category) => {
-    setSelectedCategories((prev) => {
-      if (prev.includes(category)) {
-        return prev.filter((item) => item !== category);
-      } else {
-        return [...prev, category];
-      }
-    });
-  };
-
-  const handleJobTypeToggle = (jobType) => {
-    setSelectedJobTypes((prev) => {
-      if (prev.includes(jobType)) {
-        return prev.filter((item) => item !== jobType);
-      } else {
-        return [...prev, jobType];
-      }
-    });
-  };
-
-  const handleLocationToggle = (location) => {
-    setSelectedLocations((prev) => {
-      if (prev.includes(location)) {
-        return prev.filter((item) => item !== location);
-      } else {
-        return [...prev, location];
-      }
-    });
-  };
-
-  const handleRegionToggle = (region) => {
-    setSelectedRegions((prev) => {
-      if (prev.includes(region)) {
-        return prev.filter((item) => item !== region);
-      } else {
-        return [...prev, region];
-      }
-    });
-  };
-
-  const handleAllCategories = () => {
-    setSelectedCategories([...CATEGORIES]);
-  };
-
-  const handleClearCategories = () => {
-    setSelectedCategories([]);
-  };
-
-  const handleAllJobTypes = () => {
-    setSelectedJobTypes([...JOB_TYPES]);
-  };
-
-  const handleClearJobTypes = () => {
-    setSelectedJobTypes([]);
-  };
-
-  const handleAllLocations = () => {
-    setSelectedLocations([...LOCATIONS]);
-  };
-
-  const handleClearLocations = () => {
-    setSelectedLocations([]);
-  };
-
-  const handleAllRegions = () => {
-    setSelectedRegions([...REGIONS]);
-  };
-
-  const handleClearRegions = () => {
-    setSelectedRegions([]);
-  };
-
   return (
     <section className="container max-w-6xl mx-auto flex flex-col px-4 sm:px-8 p-2 lg:p-6 my-2">
       <div className="flex flex-col gap-6 sm:gap-10 lg:gap-12 mb-6 sm:mb-10">
@@ -154,188 +84,25 @@ export default function Main() {
         </button>
 
         {showFilters && (
-          <div
-            ref={filterRef}
-            className="absolute top-full rounded-xl shadow-2xl p-2 z-50 w-full sm:w-[900px] bg-white"
-          >
-            <div className="flex justify-end space-x-2 pb-2 border-b">
-              <button
-                onClick={() => setShowFilters(false)}
-                className="btn btn-sm btn-ghost"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => setShowFilters(false)}
-                className="btn btn-sm bg-green-500 text-white hover:bg-green-600"
-              >
-                Apply
-              </button>
-            </div>
-            <div className="flex flex-col sm:flex-row">
-              <div className="w-full sm:w-2/3 border-b sm:border-b-0 sm:border-r p-2">
-                <h3 className="font-medium mb-2">
-                  Category
-                  <button
-                    onClick={handleAllCategories}
-                    className="text-xs ml-2 text-success mr-1 hover:underline"
-                  >
-                    All
-                  </button>
-                  |
-                  <button
-                    onClick={handleClearCategories}
-                    className="text-xs text-success ml-1 hover:underline"
-                  >
-                    Clear
-                  </button>
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {CATEGORIES.map((category) => (
-                    <label
-                      key={category}
-                      className="flex items-center space-x-2"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={selectedCategories.includes(category)}
-                        onChange={() => handleCategoryToggle(category)}
-                        className="rounded border-zinc-300 dark:border-zinc-600"
-                      />
-                      <span className="text-xs text-neutral-600">
-                        {category}
-                      </span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              <div className="w-full sm:w-1/2 p-2">
-                <h3 className="font-medium mb-2">
-                  Job Type
-                  <button
-                    onClick={handleAllJobTypes}
-                    className="text-xs ml-2 text-success mr-1 hover:underline"
-                  >
-                    All
-                  </button>
-                  |
-                  <button
-                    onClick={handleClearJobTypes}
-                    className="text-xs text-success ml-1 hover:underline"
-                  >
-                    Clear
-                  </button>
-                </h3>
-                <div className="space-y-2">
-                  {JOB_TYPES.map((type) => (
-                    <label key={type} className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        checked={selectedJobTypes.includes(type)}
-                        onChange={() => handleJobTypeToggle(type)}
-                        className="rounded border-zinc-300 dark:border-zinc-600"
-                      />
-                      <span className="text-xs text-neutral-600">{type}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+          <FilterSection
+            filterRef={filterRef}
+            setShowFilters={setShowFilters}
+            selectedCategories={selectedCategories}
+            setSelectedCategories={setSelectedCategories}
+            selectedJobTypes={selectedJobTypes}
+            setSelectedJobTypes={setSelectedJobTypes}
+          />
         )}
 
         {showLocations && (
-          <div
-            ref={locationRef}
-            className="absolute top-full rounded-xl shadow-2xl p-2 z-50 w-full sm:w-[900px] bg-white"
-          >
-            <div className="flex justify-end space-x-2 pb-2 border-b">
-              <button
-                onClick={() => setShowLocations(false)}
-                className="btn btn-sm btn-ghost"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => setShowLocations(false)}
-                className="btn btn-sm bg-green-500 text-white hover:bg-green-600"
-              >
-                Apply
-              </button>
-            </div>
-
-            <div className="flex flex-col sm:flex-row">
-              <div className="w-full sm:w-2/3 border-b sm:border-b-0 sm:border-r p-2">
-                <h3 className="font-medium mb-2">
-                  United States
-                  <button
-                    onClick={handleAllLocations}
-                    className="text-xs ml-2 text-success mr-1 hover:underline"
-                  >
-                    All
-                  </button>
-                  |
-                  <button
-                    onClick={handleClearLocations}
-                    className="text-xs text-success ml-1 hover:underline"
-                  >
-                    Clear
-                  </button>
-                </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  {LOCATIONS.map((location) => (
-                    <label
-                      key={location}
-                      className="flex items-center space-x-2"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={selectedLocations.includes(location)}
-                        onChange={() => handleLocationToggle(location)}
-                        className="rounded border-zinc-300 dark:border-zinc-600"
-                      />
-                      <span className="text-xs text-neutral-600">
-                        {location}
-                      </span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              <div className="w-full sm:w-1/2 p-2">
-                <h3 className="font-medium mb-2">
-                  Regions
-                  <button
-                    onClick={handleAllRegions}
-                    className="text-xs ml-2 text-success mr-1 hover:underline"
-                  >
-                    All
-                  </button>
-                  |
-                  <button
-                    onClick={handleClearRegions}
-                    className="text-xs text-success ml-1 hover:underline"
-                  >
-                    Clear
-                  </button>
-                </h3>
-                <div className="space-y-2">
-                  {REGIONS.map((region) => (
-                    <label key={region} className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        checked={selectedRegions.includes(region)}
-                        onChange={() => handleRegionToggle(region)}
-                        className="rounded border-zinc-300 dark:border-zinc-600"
-                      />
-                      <span className="text-xs text-neutral-600">{region}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+          <LocationSection
+            locationRef={locationRef}
+            setShowLocations={setShowLocations}
+            selectedLocations={selectedLocations}
+            setSelectedLocations={setSelectedLocations}
+            selectedRegions={selectedRegions}
+            setSelectedRegions={setSelectedRegions}
+          />
         )}
       </div>
     </section>
