@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import SkeletonLoader from "./Job/SkeletonLoader";
 import JobCard from "./Job/JobCard";
 import JobDetailView from "./Job/JobDetailView";
@@ -16,14 +15,17 @@ function JobList() {
     selectedJobId,
     handlePageChange,
     handleJobSelect,
+    setSelectedJobId
   } = useJobContext();
+
+  const [showJobList, setShowJobList] = useState(true);
 
   const selectedJob = jobs.find((job) => job._id === selectedJobId);
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
-      <div className="flex">
-        <div className={`w-2/5 pr-4 ${selectedJob ? "border-r" : ""}`}>
+      <div className="flex flex-col lg:flex-row">
+        <div className={`w-full lg:w-2/5 lg:pr-4 ${selectedJob ? "lg:border-r" : ""} ${showJobList ? "" : "hidden lg:block"}`}>
           {isLoading ? (
             <>
               <SkeletonLoader />
@@ -36,9 +38,11 @@ function JobList() {
             jobs?.map((job, index) => (
               <div
                 key={job._id}
-                // className="mb-4 cursor-pointer"
                 className={`${index !== 0 ? "border-t-2" : ""}`}
-                onClick={() => handleJobSelect(job._id)}
+                onClick={() => {
+                  handleJobSelect(job._id);
+                  setShowJobList(false);
+                }}
               >
                 <JobCard job={job} isSelected={selectedJobId === job._id} />
               </div>
@@ -46,7 +50,7 @@ function JobList() {
           )}
 
           {/* Pagination */}
-          <div className="flex justify-center bg-white border-t-2 p-4 shadow-lg rounded-xl overflow-hidden">
+          <div className="flex justify-center bg-white border-t-2 p-4 shadow-lg rounded-xl overflow-x-auto mt-4">
             <div className="btn-group">
               <button
                 className="btn btn-sm"
@@ -78,15 +82,18 @@ function JobList() {
         </div>
 
         {!selectedJob && (
-          <div className="w-72 pl-4">
+          <div className="w-full lg:w-72 mt-4 lg:mt-0 lg:pl-4">
             <GetNewJobsByEmail />
           </div>
         )}
         {selectedJob && (
-          <div className="w-3/5 pl-4">
+          <div className={`w-full lg:w-3/5 mt-4 lg:mt-0 lg:pl-4 ${showJobList ? "hidden lg:block" : ""}`}>
             <JobDetailView
               job={selectedJob}
-              onClose={() => setSelectedJobId(null)}
+              onClose={() => {
+                setSelectedJobId(null);
+                setShowJobList(true);
+              }}
             />
           </div>
         )}
