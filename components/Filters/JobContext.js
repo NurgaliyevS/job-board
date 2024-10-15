@@ -104,6 +104,7 @@ export function JobProvider({ children }) {
     selectedRegions,
     handlePageChange,
     handleJobSelect,
+    setSelectedJobId,
     handleFilterChange,
   };
 
