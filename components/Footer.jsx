@@ -94,16 +94,6 @@ function Footer({ bgColor }) {
               <div className="flex flex-col justify-center items-center md:items-start gap-2 mb-10 text-sm">
                 <Link
                   className="link link-hover"
-                  href="#pricing"
-                  title="Environmental Job boards - home page"
-                  onClick={() => {
-                    plausible("PRICING");
-                  }}
-                >
-                  Pricing
-                </Link>
-                <Link
-                  className="link link-hover"
                   href="mailto:nurgasab@gmail.com"
                   title="Environmental Job boards - home page"
                   onClick={() => {
@@ -111,16 +101,6 @@ function Footer({ bgColor }) {
                   }}
                 >
                   Contact Us
-                </Link>
-                <Link
-                  className="link link-hover"
-                  href="#faq"
-                  title="Environmental Job boards - home page"
-                  onClick={() => {
-                    plausible("FAQ");
-                  }}
-                >
-                  FAQ
                 </Link>
                 <Link
                   className="link link-hover"
