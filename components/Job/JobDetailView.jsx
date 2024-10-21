@@ -67,13 +67,16 @@ const JobDetailView = ({ job, onClose }) => {
         {job?.JobDescription && (
           <div className="mt-4">
             <h4 className="text-lg font-semibold mb-2">Job Description</h4>
-            <p className="opacity-70">{job.JobDescription}</p>
+            <p className="opacity-70 whitespace-pre-line">{job.JobDescription}</p>
           </div>
         )}
         {job?.HowToApply && (
-          <div className="mt-4">
-            <h4 className="text-lg font-semibold mb-2">How to Apply</h4>
-            <p className="opacity-70">{job.HowToApply}</p>
+          <div className="mt-4 bg-red-200">
+            <h4 className="text-lg font-semibold mb-2 p-4">How to Apply</h4>
+            <p className="opacity-70 p-4 whitespace-pre-line">{job.HowToApply}</p>
+            <p className="mt-2 text-lg font-semibold p-4">
+              When you apply, please indicate that you are responding to the posting from Environmental Job Boards
+            </p>
           </div>
         )}
       </div>
