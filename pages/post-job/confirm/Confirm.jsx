@@ -124,6 +124,7 @@ const Confirm = () => {
               {job.EmployerName}
               <br />
               <p className="text-success">{job?.Location}</p>
+              <p className="">{job?.Creator?.email}</p>
               <p className="text-blue-500">
                 {job?.isVerified ? "Verified" : "Not Verified"}
               </p>
