@@ -146,7 +146,7 @@ function Footer({ bgColor }) {
                   className="link link-hover"
                   href="https://uptimefriend.com/"
                   target="_blank"
-                  title="Environmental Job boards - home page"
+                  title="UptimeFriend - home page"
                   onClick={() => {
                     plausible("UptimeFriend");
                   }}
