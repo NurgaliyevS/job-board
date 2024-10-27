@@ -76,15 +76,22 @@ const renderAst = (content) =>
         },
         table: (props) => (
           <div className="overflow-x-auto my-4 text-base-content border rounded-xl">
-            <table className="table" {...props} />
+            <table className="table w-full" {...props} />
           </div>
         ),
-        th: (props) => <th className="bg-base-200" {...props} />,
+        thead: (props) => <thead {...props} />,
+        tbody: (props) => <tbody {...props} />,
+        tr: (props) => <tr className="border-b" {...props} />,
+        th: (props) => (
+          <th
+            className="bg-base-200 px-4 py-2 text-left font-bold"
+            {...props}
+          />
+        ),
+        td: (props) => <td className="px-4 py-2" {...props} />,
         a: (props) => (
           <a
-            className="link link-primary"
-            target="_blank"
-            rel="nofollow"
+            className="link link-info"
             {...props}
           />
         ),
@@ -96,14 +103,14 @@ export default function BlogPost({ post }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": post.title,
-    "datePublished": post.date,
-    "dateModified": post.date,
-    "author": {
+    headline: post.title,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
       "@type": "Person",
-      "name": post.author,
+      name: post.author,
     },
-    "description": post.excerpt,
+    description: post.excerpt,
   };
 
   return (
