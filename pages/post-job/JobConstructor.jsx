@@ -242,15 +242,10 @@ const JobConstructor = () => {
                   required
                   onBlur={handleBlur}
                 >
-                  <option value="">Select location</option>
-                  {Object.entries(locations).map(([group, options]) => (
-                    <optgroup key={group} label={group}>
-                      {options.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </optgroup>
+                  {locations.map((location) => (
+                    <option key={location.value} value={location.value}>
+                      {location.label}
+                    </option>
                   ))}
                 </select>
                 <ErrorMessage field="location" message="Location is required" />
