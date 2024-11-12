@@ -1,6 +1,6 @@
 ---
 title: "Unlocking the Green Job Market: Your Guide to Sustainable Career Opportunities"
-date: "2024-11-11"
+date: "2024-11-12"
 excerpt: "Discover the transformative world of eco-friendly job boards and learn how to leverage these specialized platforms to find your dream sustainability-focused career. Explore the top green job sites, uncover insider tips, and unlock your full potential as an environmental steward."
 author: "Sabyr Nurgaliyev"
 tags:
