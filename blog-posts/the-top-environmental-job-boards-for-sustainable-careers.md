@@ -1,6 +1,6 @@
 ---
 title: " The Top Environmental Job Boards for Sustainable Careers"
-date: "2024-11-15"
+date: "2024-11-16"
 excerpt: "In the growing landscape of environmental job boards, job seekers passionate about sustainability can now find their dream roles and make a real difference. Explore the top green job boards connecting eco-conscious candidates with purpose-driven employers."
 author: "Sabyr Nurgaliyev"
 tags:
