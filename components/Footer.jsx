@@ -6,9 +6,7 @@ import { isDevelopment } from "@/utils/isDevelopment";
 function Footer({ bgColor }) {
   const plausible = usePlausible();
   return (
-    <div
-      className={`overflow-hidden`}
-    >
+    <div className={`overflow-hidden`}>
       <div className="max-w-7xl mx-auto px-8 py-24">
         <div className="flex lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
           <div className="w-80 max-w-full flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
@@ -122,15 +120,35 @@ function Footer({ bgColor }) {
               <div className="flex flex-col justify-center items-center md:items-start gap-2 mb-10 text-sm">
                 <Link
                   className="link link-hover"
-                  href="https://subpage.io/"
+                  href="https://mvpagency.org/"
                   target="_blank"
-                  title="SubPage - home page"
+                  title="MVPAgency - home page"
+                >
+                  MVPAgency
+                </Link>
+                <Link
+                  className="link link-hover"
+                  href="https://redditagency.com/"
+                  target="_blank"
+                  title="Reddit Agency - home page"
                   onClick={() => {
-                    plausible("SubPage");
+                    plausible("RedditAgency");
                   }}
                 >
-                  SubPage
+                  RedditAgency
                 </Link>
+                <Link
+                  className="link link-hover"
+                  href="https://bestwebsitegames.com/"
+                  target="_blank"
+                  title="Best Website Games - home page"
+                  onClick={() => {
+                    plausible("BestWebsiteGames");
+                  }}
+                >
+                  BestWebsiteGames
+                </Link>
+
                 <Link
                   className="link link-hover"
                   href="https://pregnantmeal.com/"
@@ -141,6 +159,17 @@ function Footer({ bgColor }) {
                   }}
                 >
                   PregnantMeal
+                </Link>
+                <Link
+                  className="link link-hover"
+                  href="https://subpage.io/"
+                  target="_blank"
+                  title="SubPage - home page"
+                  onClick={() => {
+                    plausible("SubPage");
+                  }}
+                >
+                  SubPage
                 </Link>
                 <Link
                   className="link link-hover"
